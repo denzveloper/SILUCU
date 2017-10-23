@@ -1,0 +1,76 @@
+.rowlogin {
+margin: 100px auto;
+width: 350px;
+text-align: center;
+}
+.loginer {
+background-color: #fff;
+padding: 20px;
+margin-top: 20px;
+}
+.form-pass {
+font-family: 'Arial', 'Oxygen Mono', 'sans-serif';
+font-size: 17px;
+color: #333;
+width: 270px;
+padding: 3px 4px;
+text-shadow: 3px 3px 2px rgba(0, 0, 0, 0.2);
+border-radius: 0px;
+border: 1px solid #ccc;
+}
+.form-user {
+font-family: 'Arial', 'Oxygen Mono', 'sans-serif';
+font-size: 17px;
+color: #333;
+width: 310px;
+padding: 3px 4px;
+text-shadow: 3px 3px 2px rgba(0, 0, 0, 0.2);
+border-radius: 0px;
+border: 1px solid #ccc;
+}
+.butn {
+color: #fff;
+width: 200px;
+background-color: #0099FF;
+padding: 6px 12px;
+margin-bottom: 0px;
+font-size: 17px;
+font-family: 'Arial', 'Oxygen Mono', 'sans-serif';
+font-weight: normal;
+line-height: 1.42857;
+text-align: center;
+white-space: nowrap;
+vertical-align: middle;
+border: 1px solid #ccc;
+}
+.butn:hover {
+background-color: #efefef;
+color: #0099FF;
+border: 1px solid #0099FF;
+}
+.buttn {
+color: #0099ff;
+height: 32px;
+width: 40px;
+font-family: 'Arial', 'Oxygen Mono', 'sans-serif';
+background-color: #fff;
+padding: 6px 12px;
+margin-bottom: 0px;
+font-size: 15px;
+text-align: center;
+vertical-align: middle;
+border: 1px solid #ccc;
+}
+.chgt {
+color: #aaa;
+height: 28px;
+width: 36px;
+font-family: 'Arial', 'Oxygen Mono', 'sans-serif';
+background-color: #fff;
+padding: 6px 12px;
+margin-bottom: 0px;
+font-size: 10px;
+text-align: center;
+vertical-align: middle;
+border: 1px solid #999;
+}
