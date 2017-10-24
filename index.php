@@ -47,11 +47,20 @@ include("./res/app.php");
 							if($row['level']<1||$row['level']>3){
 								echo '<div class="alert alert-danger"><b>Tidak Dapat Login!</b><br>Gagal dalam mengambil data!</div>';
 							}
+							//Cookies
+							$usr=convert(hashing($username));
+							$pwd=convert($password);
+							$add=convert(hashing($_SERVER['REMOTE_ADDR']));
+							$bro=convert(hashing($_SERVER['HTTP_USER_AGENT']));
+							$ttl=time()+3600*2;
+							setcookie("u", $usr, $ttl, '/');
+							setcookie("b", $bro, $ttl, '/');
+							setcookie("i", $add, $ttl, '/');
+							setcookie("s", $pwd, $ttl, '/');
+							//Session
 							$_SESSION['id']=$row['id'];
 							$_SESSION['name']=$row['realname'];
 							$_SESSION['username']=$username;
-							setcookie('user', $username, time()+60*60);
-            				setcookie('pass', $password, time()+60*60);
 							header("Location: ./login");
 						}
 						else{

@@ -1,10 +1,7 @@
 <?php
 session_start();
-if(empty($_SESSION)){
-	header("Location: ../");
-}
-include("../res/app.php");
 include("./res.php");
+include("../res/app.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
