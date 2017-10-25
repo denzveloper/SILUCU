@@ -12,7 +12,7 @@ include("../res/app.php");
 	<title>PANEL <?php echo $appnam; ?> <?php echo $ver; ?></title>
 	<!-- Bootstrap -->
 	<link href="../css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="../css/styles.css">
+	<link href="../css/styles.css" rel="stylesheet">
 	<style>
 		body {
 			background-color:#eee;
@@ -73,6 +73,10 @@ include("../res/app.php");
       </div>
     </div>
 	<?php echo "$pre = $account" ?>
+<footer class="footer-basic-centered">
+				<p class="footer-company-motto"><?php echo $appnam; ?></p>
+			<p class="footer-company-name">PDAM dan POLINDRA &#169; <?php echo $begin . (($begin != $now) ? '-' . $now : ''); ?></p>
+</footer>
 	<script src="../js/jquery.min.js"></script>
 	<script src="../js/bootstrap.min.js"></script>
 </body>

@@ -39,7 +39,7 @@ include("./res/app.php");
 					$password = hashing($_POST['password']);
 					$query = mysqli_query($koneksi, "SELECT * FROM users WHERE username='$username' AND password='$password'");
 					if(mysqli_num_rows($query) == 0){
-						echo '<div class="alert alert-danger"><b>Log Masuk Gagal!</b><br>User dan Password tidak cocok!</div>';
+						echo '<div class="alert alert-danger"><b>Log Masuk Gagal!</b><br><span title="Harap perhatikan Kapitalisasi huruf!" style="cursor: help;">User dan Password tidak cocok!</span></div>';
 					}else{
 						$row = mysqli_fetch_assoc($query);
 						if($row['username']==$username && $row['password']==$password){

@@ -16,7 +16,7 @@ $lokasi = "";
 	<title>PANEL <?php echo $appnam; ?> <?php echo $ver; ?></title>
 	<!-- Bootstrap -->
 	<link href="../css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="../css/styles.css">
+	<link href="../css/styles.css" rel="stylesheet">
 	<style>
 		body {
 			background-color:#eee;
@@ -38,7 +38,7 @@ $lokasi = "";
 	<![endif]-->
 </head>
 <body>
-<div class="navbar-wrapper">
+	<div class="navbar-wrapper">
       <div class="container">
 
         <nav class="navbar navbar-inverse navbar-static-top">
@@ -141,6 +141,10 @@ $lokasi = "";
 	</div>
      </form>
 	</div>
+<footer class="footer-basic-centered">
+				<p class="footer-company-motto"><?php echo $appnam; ?></p>
+			<p class="footer-company-name">PDAM dan POLINDRA &#169; <?php echo $begin . (($begin != $now) ? '-' . $now : ''); ?></p>
+</footer>
 	<script src="../js/jquery.min.js"></script>
 	<script src="../js/bootstrap.min.js"></script>
 </body>

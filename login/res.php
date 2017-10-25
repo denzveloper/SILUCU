@@ -53,7 +53,6 @@ else if($pre==3){
 	$z="#";
 }
 else{
-	session_destroy();
-	header("Location: ../");
+header("Location: ./logout.php");
 }
 ?>

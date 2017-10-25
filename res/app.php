@@ -1,5 +1,28 @@
 <?php
-$ver='0.1 BETA';
+/****************************
+CREATED BY:
+1. DANIYAH HAYATI
+2. DENDY OCTAVIAN
+3. HAFIDZ A. P.
+4. NANDIA R. N.
+5. MAWAR UTARI
+
+SYSTEM BY:
+DENZVELOPER aka DzEN
+
+DESIGN BY:
+DANIYAH HAYATI
+HAFIDZ A. P.
+NANDIA R. N.
+MAWAR UTARI
+
+UNIVERSITY:
+POLITEKNIK NEGERI INDRAMAYU
+
+CLIENT:
+PDAM KABUPATEN INDRAMAYU
+*****************************/
+$ver='0.1 ALFA';
 $now=date('Y');
 $begin=2017;
 $appnam='SILCU';
