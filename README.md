@@ -1,14 +1,12 @@
 # phpreport
-Membuat pelaporan Untuk usaha Anda(Currently ALPHA).
+Membuat pelaporan Untuk usaha Anda(Currently BETA).
 Aplikasi berbasis WEB ini menggunakan PHP, Javascript, HTML, dan komponen pendukung lainnya.
 Dibutuhkan PHP v7 atau lebih baru untuk menjalankannya.
 
 ----PERINGATAN!-----------------------------------------------------
 
-HANYA UNTUK REFERENSI SAJA!
+Program ini Hanya untuk "REFERENSI" saja!
 
-DIPERBOLEHKAN COPAS UNTUK BEBERAPA KOMPONEN!
+Diperbolehkan untuk copy-paste asal patuhlah pada Lisensi GPL v2!
 
-SERTAKAN SUMBER!
-
-「Using Indonesian」
+「This Text Using Indonesian」
