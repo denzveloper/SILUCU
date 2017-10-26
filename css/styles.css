@@ -93,13 +93,13 @@ footer{
 
 .footer-basic-centered .footer-company-motto{
 	color:  #8d9093;
-	font-size: 16px;
+	font-size: 12px;
 	margin: 0;
 }
 
 .footer-basic-centered .footer-company-name{
 	color:  #8f9296;
-	font-size: 12px;
+	font-size: 9px;
 	margin: 0;
 }
 
@@ -110,10 +110,10 @@ footer{
 	}
 
 	.footer-basic-centered .footer-company-motto{
-		font-size: 12px;
+		font-size: 10px;
 	}
 
 	.footer-basic-centered .footer-company-name{
-		font-size: 9px;
+		font-size: 7px;
 	}
 }

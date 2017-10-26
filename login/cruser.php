@@ -89,10 +89,10 @@ $lokasi = "";
           $pass2 = $_POST['pass2'];
           $pass = hashing($pass1);
           if($pass1==$pass2){
-            if(($akses==2 && $pre==1) || $akses==3){
+            if(($akses==2 && $pre==1) || ($akses==3 && $pre<3)){
               $ok=mysqli_query($koneksi, "INSERT INTO users (id, username, realname, locations, password, level) VALUES (NULL, '$username', '$nama', '$lokasi', '$pass', '$akses')");
               if($ok){
-                echo '<div class="alert alert-success"><b>Berhasil!</b><br>Pengguna "'.$username.'" Telah berhasil dibuat!</div>';
+                echo '<div class="alert alert-success"><b>Berhasil!</b><br />Pengguna "'.$username.'" Telah berhasil dibuat!</div>';
                 $username = "";
                 $nama = "";
                 $lokasi = "";
@@ -141,10 +141,6 @@ $lokasi = "";
 	</div>
      </form>
 	</div>
-<footer class="footer-basic-centered">
-				<p class="footer-company-motto"><?php echo $appnam; ?></p>
-			<p class="footer-company-name">PDAM dan POLINDRA &#169; <?php echo $begin . (($begin != $now) ? '-' . $now : ''); ?></p>
-</footer>
 	<script src="../js/jquery.min.js"></script>
 	<script src="../js/bootstrap.min.js"></script>
 </body>

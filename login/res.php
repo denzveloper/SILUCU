@@ -10,6 +10,7 @@ $bro=convert(hashing($_SERVER['HTTP_USER_AGENT']));
 $id=$_SESSION['id'];
 $data=mysqli_query($koneksi, "SELECT * FROM users WHERE id='$id'");
 $data=mysqli_fetch_array($data);
+$idus = $data['username'];
 $username = $data['username'];
 $sandi = $data['password'];
 $nama = $data['realname'];
@@ -24,27 +25,24 @@ if($_COOKIE['u']!=$coks||$_COOKIE['s']!=$cokp||$_COOKIE['b']!=$bro||$_COOKIE['i'
 }
 if($pre==1){
 	$account="Super User";
-	/*Its Link Disable or not*/
 	$a="test.php";
 	$b="test.php";
 	$c="#";
 	$x="eduser.php";
-	$y="akunman.php";
+	$y="manuser.php";
 	$z="cruser.php";
 }
 else if($pre==2){
 	$account="Admin Cabang";
-	/*Its Link Disable or not*/
 	$a="test.php";
 	$b="#";
 	$c="#";
 	$x="eduser.php";
-	$y="akunman.php";
+	$y="manuser.php";
 	$z="cruser.php";
 }
 else if($pre==3){
-	$account="User";
-	/*Its Link Disable or not*/
+	$account="Petugas Isi Data";
 	$a="#";
 	$b="#";
 	$c="#";

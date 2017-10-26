@@ -84,9 +84,9 @@ include("./res.php");
           $pass2 = $_POST['pass2'];
           $pass = hashing($pass1);
           if($pass1==$pass2){
-              $ok=mysqli_query($koneksi, "UPDATE users SET realname='$nama', locations='$lokasi', password='$pass' WHERE $id");
+              $ok=mysqli_query($koneksi, "UPDATE users SET realname='$nama', locations='$lokasi', password='$pass' WHERE id=$id");
               if($ok){
-                echo '<div class="alert alert-success"><b>Berhasil!</b><br>Pengguna "'.$username.'" Telah berhasil diperbarui!</div>';
+                echo '<div class="alert alert-success"><b>Berhasil!</b><br />Pengguna "'.$username.'" Telah berhasil diperbarui!<br /><sub>Demi keamanan Anda akan otomatis akan Logout dan Masuklah dengan Sandi baru.</sub></div><meta http-equiv="refresh" content="4; url:./logout.php">';
               }
               else{
                 echo '<div class="alert alert-danger"><b>Galat!</b><br />Maaf, Ada kesalahan terjadi!<br /><i>Coba Lagi nanti..</i></div>';
@@ -115,7 +115,7 @@ include("./res.php");
 	</div>
 	<div class="input-group">
 		<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-    <input type="text" name="access" value="Hak Akses: &quot;<?php echo $account;?>&quot;" class="form-control" placeholder="Hak akses" disabled/>
+    <input type="text" value="Hak Akses: &quot;<?php echo $account;?>&quot;" class="form-control" placeholder="Hak akses" disabled/>
 	</div>
   <div class="input-group">
 
@@ -128,10 +128,6 @@ include("./res.php");
 	</div>
      </form>
 	</div>
-<footer class="footer-basic-centered">
-				<p class="footer-company-motto"><?php echo $appnam; ?></p>
-			<p class="footer-company-name">PDAM dan POLINDRA &#169; <?php echo $begin . (($begin != $now) ? '-' . $now : ''); ?></p>
-</footer>
 	<script src="../js/jquery.min.js"></script>
 	<script src="../js/bootstrap.min.js"></script>
 </body>

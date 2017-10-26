@@ -29,7 +29,7 @@ include("./res/app.php");
 <body id="back">
 	<div class="container">
 		<div class="rowlogin">
-			<h2>Log Masuk <b><?php echo $appnam; ?></b></h2>
+			<h2><img class="featurette-image img-responsive center-block" src="./img/silcu-logo.png" width="75px" /> Log Masuk <b><?php echo $appnam; ?></b></h2>
 			<div class="loginer">
 				<?php
 				if(isset($_POST['login'])){

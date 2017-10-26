@@ -1,7 +1,10 @@
 <?php
 session_start();
 include("./res.php");
-include("../res/app.php");
+if($pre>2)
+  header("Location: ./index.php");
+$ambil=mysqli_query($koneksi, "SELECT * FROM users");
+$k=0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,7 +53,7 @@ include("../res/app.php");
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Home</a></li>
                 <li><a href="<?php echo $a;?>">Menu 1</a></li>
                 <li><a href="<?php echo $b;?>">Menu 2</a></li>
                 <li><a href="<?php echo $c;?>">Menu 3</a></li>
@@ -58,7 +61,7 @@ include("../res/app.php");
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo "$user"; ?> <span class="caret"></span></a>
                   <ul class="dropdown-menu">
 					          <li><a href="<?php echo $x;?>">Edit Profil</a></li>
-                    <li><a href="<?php echo $y;?>">Akun Manager</a></li>
+                    <li class="active"><a href="<?php echo $y;?>">Akun Manager</a></li>
                     <li><a href="<?php echo $z;?>">Buat akun baru</a></li>
                     <li role="separator" class="divider"></li>
                     <li class="dropdown-header">Log Keluar</li>
@@ -69,18 +72,51 @@ include("../res/app.php");
             </div>
           </div>
         </nav>
-
       </div>
     </div>
-    <!--Atas Bawah-->
-    <div class="container marketing">
-      <img class="featurette-image img-responsive center-block" src="../img/silcu-logo.png" width="200px" />
-      <h2 class="center-block">SELAMAT DATANG DI APLIKASI WEB SILCU :: PDAM INDRAMAYU</h2>
+  </div>
+  <div class="container marketing">
+    <div class="table-responsive">
+      <label class="control-label">Manager Akun</label>
+      <table class="table">
+      <thead>
+      <tr>
+      <td>#</td>
+      <td>Username</td>
+      <td>Real Name</td>
+      <td>Locations</td>
+      <td>Acions</td>
+      <?php
+        while($data=mysqli_fetch_array($ambil)){
+          if($data['id']!=$idus && $data['level']!=$pre){
+            if($data['level']>$id && $data['locations']==$lokasi){
+            $k++;
+            echo "<tr>
+            <td>$k</td>
+            <td>$data[username]</td>
+            <td>$data[realname]</td>
+            <td>$data[locations]</td>
+            <td><a href='./edit.php?idus=$data[id]' title='Manage User'><button>Manage</button></a></td>
+            </tr>
+            ";
+            }
+            else if($id==1){
+            $k++;
+            echo "<tr>
+            <td>$k</td>
+            <td>$data[username]</td>
+            <td>$data[realname]</td>
+            <td>$data[locations]</td>
+            <td><a href='./edit.php?idus=$data[id]' title='Manage User'><button>Manage</button></a></td>
+            </tr>
+            ";}
+          }
+        }
+      ?>
+    </thead>
+    </table>
     </div>
-<footer class="footer-basic-centered">
-				<p class="footer-company-motto"><?php echo $appnam; ?></p>
-			<p class="footer-company-name">PDAM dan POLINDRA &#169; <?php echo $begin . (($begin != $now) ? '-' . $now : ''); ?></p>
-</footer>
+  </div>
 	<script src="../js/jquery.min.js"></script>
 	<script src="../js/bootstrap.min.js"></script>
 </body>
