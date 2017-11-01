@@ -99,7 +99,7 @@ if($lvl==3){
       $pass = hashing($pass1);
       }
       if($id==1 && $pass1==$pass2){
-        if($_POST['access']!=1){
+        if($_POST['access']>1 && $_POST['access']<4){
           $tingkat=$_POST['access'];
         }
         else{
@@ -130,7 +130,7 @@ if($lvl==3){
       if($id<$idus){
       $ok=mysqli_query($koneksi, "DELETE FROM users WHERE id=$idus");
       if($ok){
-          echo '<div class="alert alert-success"><b>Berhasil!</b><br />Pengguna "'.$nama.'" Telah berhasil diperbarui!<br /><sub>Anda akan dialihkan kehalaman Manager User kembali.</sub></div><meta http-equiv="refresh" content="4; url=./manuser.php">';
+          echo '<div class="alert alert-success"><b>Berhasil!</b><br />Pengguna "'.$nama.'" Telah berhasil dihapus!<br /><sub>Anda akan dialihkan kehalaman Manager User kembali.</sub></div><meta http-equiv="refresh" content="4; url=./manuser.php">';
           exit;
         }
         else{
@@ -169,7 +169,7 @@ if($lvl==3){
 	<div class="col-lg-2">
 		<label class="control-label">&nbsp;</label>
         <button type="submit" name="baru" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-send"></span>&nbsp;Perbarui</button>
-        <button type="submit" name="hps" class="btn btn-primary btn-block" onclick="return confirm('Yakin menghapus Pengguna <?php echo $data['realname'];?>?')"><span class="glyphicon glyphicon-trash"></span>&nbsp;Hapus</button>
+        <button type="submit" name="hps" class="btn btn-primary btn-block" onclick="return confirm('Yakin menghapus Pengguna <?php echo $data['realname'];?>?')"><span class="glyphicon glyphicon-trash"></span>&nbsp;Tutup Akun</button>
         <button type="reset" name="reset" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-retweet"></span>&nbsp;Reset</button><br />
         </a>
      </form>

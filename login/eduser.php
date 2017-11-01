@@ -100,6 +100,16 @@ include("./res.php");
           echo '<div class="alert alert-danger"><b>Galat memperbarui!</b><br />Password lama tidak cocok!</div>';
         }
       }
+      if(isset($_POST['delete'])){
+      $ok=mysqli_query($koneksi, "DELETE FROM users WHERE id=$id");
+      if($ok){
+          echo '<div class="alert alert-success"><b>Berhasil!</b><br />Pengguna ini dengan nama "'.$nama.'". Telah berhasil dihapus!<br /><sub>Anda akan dialihkan kehalaman Manager User kembali.</sub></div><meta http-equiv="refresh" content="4; url=./logout.php">';
+          exit;
+        }
+        else{
+          echo '<div class="alert alert-danger"><b>Galat!</b><br />Maaf, Ada kesalahan terjadi!<br /><i>Coba Lagi nanti..</i></div>';
+        }
+      }
     ?>
 	 <form role="form" action="" method="post">
 		 <div class="col-lg-9">
@@ -125,8 +135,12 @@ include("./res.php");
 		<label class="control-label">&nbsp;</label>
         <button type="submit" name="update" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-send"></span>&nbsp;Simpan</button>
         <button type="reset" name="reset" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-retweet"></span>&nbsp;Reset</button>
-	</div>
+        <!--<button type="submit" name="delete" class="btn btn-primary btn-block" onclick="return confirm('Yakin ingin menghapus Akun ini(<?php echo $data['realname'];?>)?')"><span class="glyphicon glyphicon-trash"></span>&nbsp;Hapus Akun</button>-->
      </form>
+     <br />
+     <form role="form" action="" method="post">
+     <button type="submit" name="delete" class="btn btn-primary btn-block" onclick="return confirm('Yakin ingin menghapus Akun ini(<?php echo $data['realname'];?>)?')"><span class="glyphicon glyphicon-trash"></span>&nbsp;Hapus Akun</button></form>
+     </div>
 	</div>
 	<script src="../js/jquery.min.js"></script>
 	<script src="../js/bootstrap.min.js"></script>

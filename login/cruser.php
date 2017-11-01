@@ -89,7 +89,7 @@ $lokasi = "";
           $pass2 = $_POST['pass2'];
           $pass = hashing($pass1);
           if($pass1==$pass2){
-            if(($akses==2 && $pre==1) || ($akses==3 && $pre<3)){
+            if(($akses<3 && $pre==1) || ($akses==3 && $pre<3)){
               $ok=mysqli_query($koneksi, "INSERT INTO users (id, username, realname, locations, password, level) VALUES (NULL, '$username', '$nama', '$lokasi', '$pass', '$akses')");
               if($ok){
                 echo '<div class="alert alert-success"><b>Berhasil!</b><br />Pengguna "'.$username.'" Telah berhasil dibuat!</div>';
@@ -126,6 +126,7 @@ $lokasi = "";
 		<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 		<select name="access" class="form-control" required autofocus>
         <option value="-">-</option>
+        <option value="1" <?php if($pre!=1) echo "disabled";?>>Super User</option>
         <option value="2" <?php if($pre!=1) echo "disabled";?>>Admin Cabang</option>
         <option value="3">Petugas Pengisian Data</option>
 		</select>

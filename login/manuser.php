@@ -53,7 +53,7 @@ $k=0;
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
-                <li><a href="#">Home</a></li>
+                <li><a href="index.php">Home</a></li>
                 <li><a href="<?php echo $a;?>">Menu 1</a></li>
                 <li><a href="<?php echo $b;?>">Menu 2</a></li>
                 <li><a href="<?php echo $c;?>">Menu 3</a></li>
@@ -85,11 +85,11 @@ $k=0;
       <td>Username</td>
       <td>Real Name</td>
       <td>Locations</td>
-      <td>Acions</td>
+      <td>Actions</td>
       <?php
         while($data=mysqli_fetch_array($ambil)){
           if($data['id']!=$idus && $data['level']!=$pre){
-            if($data['level']>$id && $data['locations']==$lokasi){
+            if($data['locations']==$lokasi && $data['level']>$pre){
             $k++;
             echo "<tr>
             <td>$k</td>
