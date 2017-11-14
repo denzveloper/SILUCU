@@ -21,16 +21,6 @@ $lokasi = "";
 		body {
 			background-color:#eee;
 		}
-		.row {
-			margin:100px auto;
-			width:300px;
-			text-align:center;
-		}
-		.login {
-			background-color:#fff;
-			padding:20px;
-			margin-top:20px;
-		}
 	</style>
 	<!--[if lt IE 9]>
 	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -66,7 +56,7 @@ $lokasi = "";
                     <li class="active"><a href="<?php echo $z;?>">Buat akun baru</a></li>
                     <li role="separator" class="divider"></li>
                     <li class="dropdown-header">Log Keluar</li>
-                    <li><a href="logout.php" onclick="return confirm('<?php echo "$user.";?> Yakin, ingin keluar dari <?php echo $appnam ?>?')"><?php echo "$user";?></a></li>
+                    <li><a href="logout.php" onclick="return confirm('<?php echo $user;?> Yakin, ingin keluar dari <?php echo $appnam ?>?')"><?php echo "$user";?></a></li>
                   </ul>
                 </li>
               </ul>

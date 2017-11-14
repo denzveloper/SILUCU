@@ -19,10 +19,10 @@ MAWAR UTARI
 UNIVERSITY:
 POLITEKNIK NEGERI INDRAMAYU
 
-CLIENT:
+OUR CLIENT/TO:
 PDAM KABUPATEN INDRAMAYU
 *****************************/
-$ver='0.2 ALPHA';
+$ver='0.3 ALPHA';
 $now=date('Y');
 $begin=2017;
 $appnam='SILCU';

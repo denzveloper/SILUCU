@@ -28,16 +28,6 @@ if($lvl==3){
 		body {
 			background-color:#eee;
 		}
-		.row {
-			margin:100px auto;
-			width:300px;
-			text-align:center;
-		}
-		.login {
-			background-color:#fff;
-			padding:20px;
-			margin-top:20px;
-		}
 	</style>
 	<!--[if lt IE 9]>
 	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -72,7 +62,7 @@ if($lvl==3){
                     <li><a href="<?php echo $z;?>">Buat akun baru</a></li>
                     <li role="separator" class="divider"></li>
                     <li class="dropdown-header">Log Keluar</li>
-                    <li><a href="logout.php" onclick="return confirm('<?php echo "$user.";?> Yakin, ingin keluar dari <?php echo $appnam ?>?')"><?php echo "$user";?></a></li>
+                    <li><a href="logout.php" onclick="return confirm('<?php echo $user;?> Yakin, ingin keluar dari <?php echo $appnam ?>?')"><?php echo "$user";?></a></li>
                   </ul>
                 </li>
               </ul>
@@ -94,8 +84,8 @@ if($lvl==3){
       $pass2 = $pass1;
       $pass = $pass2;
       }else{
-      $pass1 = $_POST['pass1'];
-      $pass2 = $_POST['pass2'];
+      $pass1 = isset($_POST['pass1']);
+      $pass2 = isset($_POST['pass2']);
       $pass = hashing($pass1);
       }
       if($id==1 && $pass1==$pass2){
@@ -156,7 +146,7 @@ if($lvl==3){
     <input type="text" value="Hak Akses: &quot;';?><?php echo $lvl; echo '&quot;" class="form-control" placeholder="Hak akses" disabled/>';}
       if($id==1){ echo '
         <select name="access" class="form-control" required autofocus>
-          <option value="-">-</option>
+          <option value="-">-Tidak Berubah-</option>
           <option value="2"'; ?> <?php if($pre!=1) echo "disabled"; echo '>Admin Cabang</option>
           <option value="3">Petugas Pengisian Data</option>
         </select>';}
@@ -169,7 +159,7 @@ if($lvl==3){
 	<div class="col-lg-2">
 		<label class="control-label">&nbsp;</label>
         <button type="submit" name="baru" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-send"></span>&nbsp;Perbarui</button>
-        <button type="submit" name="hps" class="btn btn-primary btn-block" onclick="return confirm('Yakin menghapus Pengguna <?php echo $data['realname'];?>?')"><span class="glyphicon glyphicon-trash"></span>&nbsp;Tutup Akun</button>
+        <button type="submit" name="hps" class="btn btn-primary btn-block" onclick="return confirm('Yakin menghapus Pengguna (<?php echo $data['realname'];?>)?')"><span class="glyphicon glyphicon-trash"></span>&nbsp;Tutup Akun</button>
         <button type="reset" name="reset" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-retweet"></span>&nbsp;Reset</button><br />
         </a>
      </form>

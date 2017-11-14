@@ -16,16 +16,6 @@ include("./res.php");
 		body {
 			background-color:#eee;
 		}
-		.row {
-			margin:100px auto;
-			width:300px;
-			text-align:center;
-		}
-		.login {
-			background-color:#fff;
-			padding:20px;
-			margin-top:20px;
-		}
 	</style>
 	<!--[if lt IE 9]>
 	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -60,7 +50,7 @@ include("./res.php");
                     <li><a href="<?php echo $z;?>">Buat akun baru</a></li>
                     <li role="separator" class="divider"></li>
                     <li class="dropdown-header">Log Keluar</li>
-                    <li><a href="logout.php" onclick="return confirm('<?php echo "$user.";?> Yakin, ingin keluar dari <?php echo $appnam ?>?')"><?php echo "$user";?></a></li>
+                    <li><a href="logout.php" onclick="return confirm('<?php echo $user;?> Yakin, ingin keluar dari <?php echo $appnam ?>?')"><?php echo "$user";?></a></li>
                   </ul>
                 </li>
               </ul>
@@ -83,6 +73,9 @@ include("./res.php");
           $pass1 = $_POST['pass1'];
           $pass2 = $_POST['pass2'];
           $pass = hashing($pass1);
+          if($pass1==''||$pass2=''){
+            $pass=$sandi;
+          }
           if($pass1==$pass2){
               $ok=mysqli_query($koneksi, "UPDATE users SET realname='$nama', locations='$lokasi', password='$pass' WHERE id=$id");
               if($ok){
@@ -101,14 +94,38 @@ include("./res.php");
         }
       }
       if(isset($_POST['delete'])){
+      $adm=0;
+      $ambil=mysqli_query($koneksi, "SELECT * FROM users");
+      while($data=mysqli_fetch_array($ambil)){
+      	if(1==$data['level']){
+      		$adm++;
+      	}
+      }
+      $pass = isset($_POST['pass']);
+      $pass = hashing($pass);
+      if($pre==1&&$sandi==$pass&&$adm>1){
       $ok=mysqli_query($koneksi, "DELETE FROM users WHERE id=$id");
-      if($ok){
+        if($ok){
           echo '<div class="alert alert-success"><b>Berhasil!</b><br />Pengguna ini dengan nama "'.$nama.'". Telah berhasil dihapus!<br /><sub>Anda akan dialihkan kehalaman Manager User kembali.</sub></div><meta http-equiv="refresh" content="4; url=./logout.php">';
           exit;
         }
         else{
-          echo '<div class="alert alert-danger"><b>Galat!</b><br />Maaf, Ada kesalahan terjadi!<br /><i>Coba Lagi nanti..</i></div>';
+          echo '<div class="alert alert-danger"><b>Galat!</b><br />Maaf, Terjadi kesalahan!<br /><i>Silahkan Coba Lagi nanti..</i></div>';
         }
+      }
+      if($sandi==$pass){
+      $ok=mysqli_query($koneksi, "DELETE FROM users WHERE id=$id");
+        if($ok){
+          echo '<div class="alert alert-success"><b>Berhasil!</b><br />Pengguna ini dengan nama "'.$nama.'". Telah berhasil dihapus!<br /><sub>Anda akan dialihkan kehalaman Manager User kembali.</sub></div><meta http-equiv="refresh" content="4; url=./logout.php">';
+          exit;
+        }
+        else{
+          echo '<div class="alert alert-danger"><b>Galat!</b><br />Maaf, Ada kesalahan terjadi!<br /><i>Silahkan Coba Lagi nanti..</i></div>';
+        }
+      }
+      else{
+        echo '<div class="alert alert-danger"><b>Galat menghapus akun!</b><br />Silahkan Coba beberapa saat lagi. Jika masih terjadi segera hubungi Administrator.</div>';
+      }
       }
     ?>
 	 <form role="form" action="" method="post">
@@ -139,7 +156,7 @@ include("./res.php");
      </form>
      <br />
      <form role="form" action="" method="post">
-     <button type="submit" name="delete" class="btn btn-primary btn-block" onclick="return confirm('Yakin ingin menghapus Akun ini(<?php echo $data['realname'];?>)?')"><span class="glyphicon glyphicon-trash"></span>&nbsp;Hapus Akun</button></form>
+     <button type="submit" name="delete" class="btn btn-primary btn-block" onclick="return confirm('Yakin ingin menghapus Akun ini(<?php echo $uname;?>)?')"><span class="glyphicon glyphicon-trash"></span>&nbsp;Hapus Akun</button></form>
      </div>
 	</div>
 	<script src="../js/jquery.min.js"></script>

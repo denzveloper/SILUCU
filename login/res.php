@@ -15,44 +15,14 @@ $username=$data['username'];
 $sandi=$data['password'];
 $nama=$data['realname'];
 $lokasi=$data['locations'];
-$pre=$_SESSION['level'];
+$pre=$data['level'];
 $uname=$_SESSION['username'];
 $user=$_SESSION['name'];
 $coks=convert(hashing($uname));
 $cokp=convert($sandi);
 if($_COOKIE['u']!=$coks||$_COOKIE['s']!=$cokp||$_COOKIE['b']!=$bro||$_COOKIE['i']!=$ip){
 	header("Location: ./logout.php");
-}/*
-if($pre==1){
-	$account="Super User";
-	$a="test.php";
-	$b="test.php";
-	$c="#";
-	$x="eduser.php";
-	$y="manuser.php";
-	$z="cruser.php";
 }
-else if($pre==2){
-	$account="Admin Cabang";
-	$a="test.php";
-	$b="#";
-	$c="#";
-	$x="eduser.php";
-	$y="manuser.php";
-	$z="cruser.php";
-}
-else if($pre==3){
-	$account="Petugas Isi Data";
-	$a="#";
-	$b="#";
-	$c="#";
-	$x="eduser.php";
-	$y="#";
-	$z="#";
-}
-else{
-header("Location: ./logout.php");
-}*/
 switch($pre){
 	case 1:
 		$account="Super User";

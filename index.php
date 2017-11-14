@@ -43,10 +43,6 @@ include("./res/app.php");
 					}else{
 						$row = mysqli_fetch_assoc($query);
 						if($row['username']==$username && $row['password']==$password){
-							$_SESSION['level']=$row['level'];
-							if($row['level']<1||$row['level']>3){
-								echo '<div class="alert alert-danger"><b>Tidak Dapat Login!</b><br>Gagal dalam mengambil data!</div>';
-							}
 							//Cookies
 							$usr=convert(hashing($username));
 							$pwd=convert($password);
