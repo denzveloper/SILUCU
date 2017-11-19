@@ -1,9 +1,8 @@
 <?php
-session_start();
 include("./res.php");
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,11 +11,11 @@ include("./res.php");
 	<!-- Bootstrap -->
 	<link href="../css/bootstrap.min.css" rel="stylesheet">
 	<link href="../css/styles.css" rel="stylesheet">
-	<style>
-		body {
-			background-color:#eee;
-		}
-	</style>
+  <style>
+    body {
+      background-color: #eee;
+    }
+  </style>
 	<!--[if lt IE 9]>
 	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -35,7 +34,7 @@ include("./res.php");
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#"><?php echo $appnam; ?></a>
+              <a class="navbar-brand" href="index.php"><?php echo $appnam; ?></a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
@@ -63,13 +62,15 @@ include("./res.php");
     </div>
     <!--Atas Bawah-->
     <div class="container marketing">
-      <img class="featurette-image img-responsive center-block" src="../img/silcu-logo.png" width="200px" />
-      <h2 class="center-block">SELAMAT DATANG DI APLIKASI WEB SILCU :: PDAM INDRAMAYU</h2>
-    </div>
-<footer class="footer-basic-centered">
-				<p class="footer-company-motto"><?php echo $appnam; ?></p>
-			<p class="footer-company-name">PDAM dan POLINDRA &#169; <?php echo $begin . (($begin != $now) ? '-' . $now : ''); ?></p>
+      <img class="featurette-image img-responsive center-block" src="../img/logos.png" width="90%" />
+      <h2 class="center-block text-center">SELAMAT DATANG DI APLIKASI WEB SILCU :: PDAM INDRAMAYU</h2>
+      <p class="text-center">
+        <a href="<?php echo $link; ?>"><button class="btn"><?php echo $ln;?></button></a>
+      </p>
+<footer>
+			<p><strong><?php echo $appnam; ?></strong> <b>-</b> <i>PDAM dan POLINDRA &#169; <?php echo $begin . (($begin != $now) ? '-' . $now : ''); ?></i></p>
 </footer>
+</div>
 	<script src="../js/jquery.min.js"></script>
 	<script src="../js/bootstrap.min.js"></script>
 </body>

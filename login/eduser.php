@@ -1,9 +1,8 @@
 <?php
-session_start();
 include("./res.php");
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,7 +13,7 @@ include("./res.php");
 	<link href="../css/styles.css" rel="stylesheet">
 	<style>
 		body {
-			background-color:#eee;
+			background-color: #eee;
 		}
 	</style>
 	<!--[if lt IE 9]>
@@ -34,7 +33,7 @@ include("./res.php");
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#"><?php echo $appnam; ?></a>
+              <a class="navbar-brand" href="index.php"><?php echo $appnam; ?></a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
@@ -57,7 +56,6 @@ include("./res.php");
             </div>
           </div>
         </nav>
-
       </div>
     </div>
     <!-- Atas-Bawah -->
@@ -67,19 +65,20 @@ include("./res.php");
       $pass = $_POST['pass'];
       $pass = hashing($pass);
       if($sandi==$pass){
-          $nama = $_POST['name'];
-          $lokasi = ucfirst($_POST['locations']);
+          $nama = strtoupper($_POST['name']);
+          if($pre==1){
+          $lokasi = ucfirst($_POST['locations']);}
           //Password
           $pass1 = $_POST['pass1'];
           $pass2 = $_POST['pass2'];
           $pass = hashing($pass1);
-          if($pass1==''||$pass2=''){
+          if($pass1==''||$pass2==''){
             $pass=$sandi;
           }
           if($pass1==$pass2){
               $ok=mysqli_query($koneksi, "UPDATE users SET realname='$nama', locations='$lokasi', password='$pass' WHERE id=$id");
               if($ok){
-                echo '<div class="alert alert-success"><b>Berhasil!</b><br />Pengguna "'.$username.'" Telah berhasil diperbarui!<br /><sub>Demi keamanan Anda akan otomatis akan Logout dan Masuklah dengan Sandi baru.</sub></div><meta http-equiv="refresh" content="4; url:./logout.php">';
+                echo '<div class="alert alert-success"><b>Berhasil!</b><br />Pengguna "'.$username.'" Telah berhasil diperbarui!<br /><sub>Demi keamanan Anda akan otomatis akan Logout dan Masuklah dengan Sandi baru.</sub></div><script language="javascript">alert("Pengguna ini berhasil diperbarui, Silahkan login kembali!")</script><meta http-equiv="refresh" content="4; url=./logout.php">';
               }
               else{
                 echo '<div class="alert alert-danger"><b>Galat!</b><br />Maaf, Ada kesalahan terjadi!<br /><i>Coba Lagi nanti..</i></div>';
@@ -101,26 +100,36 @@ include("./res.php");
       		$adm++;
       	}
       }
-      $pass = isset($_POST['pass']);
+      $pass = strval($_POST['pass']);
       $pass = hashing($pass);
       if($pre==1&&$sandi==$pass&&$adm>1){
       $ok=mysqli_query($koneksi, "DELETE FROM users WHERE id=$id");
         if($ok){
-          echo '<div class="alert alert-success"><b>Berhasil!</b><br />Pengguna ini dengan nama "'.$nama.'". Telah berhasil dihapus!<br /><sub>Anda akan dialihkan kehalaman Manager User kembali.</sub></div><meta http-equiv="refresh" content="4; url=./logout.php">';
+          echo '<div class="alert alert-success"><b>Berhasil!</b><br />Pengguna ini dengan nama "'.$nama.'". Telah berhasil dihapus!<br /><sub>Anda akan di-log out dari sistem dan tidak dapat menggunakan akun ini lagi.</sub></div><script language="javascript">alert("Pengguna ini berhasil dihapus, Anda tidak dapat login lagi menggunakan akun ini!")</script><meta http-equiv="refresh" content="4; url=./logout.php">';
           exit;
         }
         else{
-          echo '<div class="alert alert-danger"><b>Galat!</b><br />Maaf, Terjadi kesalahan!<br /><i>Silahkan Coba Lagi nanti..</i></div>';
+          echo '<div class="alert alert-danger"><b>Galat!</b><br />Maaf, Terjadi kesalahan!<br /><i>Silahkan Coba Lagi nanti..</i></div><script language="javascript">alert("Galat! Terjadi sebuah kesalahan.")</script>';
         }
       }
-      if($sandi==$pass){
-      $ok=mysqli_query($koneksi, "DELETE FROM users WHERE id=$id");
+      if($sandi==$pass && $pre==2){
+      $ok=mysqli_query($koneksi, "DELETE FROM users WHERE locations='$lokasi' and level>1");
         if($ok){
-          echo '<div class="alert alert-success"><b>Berhasil!</b><br />Pengguna ini dengan nama "'.$nama.'". Telah berhasil dihapus!<br /><sub>Anda akan dialihkan kehalaman Manager User kembali.</sub></div><meta http-equiv="refresh" content="4; url=./logout.php">';
+          echo '<div class="alert alert-success"><b>Berhasil!</b><br />Pengguna ini dengan nama "'.$nama.'". Telah berhasil dihapus!<br /><sub>Anda akan di-log out dari sistem dan tidak dapat menggunakan akun ini lagi.</sub></div><script language="javascript">alert("Pengguna ini berserta pengguna yang bertempat sama berhasil dihapus, Anda tidak dapat login lagi menggunakan akun ini!")</script><meta http-equiv="refresh" content="4; url=./logout.php">';
           exit;
         }
         else{
-          echo '<div class="alert alert-danger"><b>Galat!</b><br />Maaf, Ada kesalahan terjadi!<br /><i>Silahkan Coba Lagi nanti..</i></div>';
+          echo '<div class="alert alert-danger"><b>Galat!</b><br />Maaf, Ada kesalahan terjadi!<br /><i>Silahkan Coba Lagi nanti..</i></div><script language="javascript">alert("Galat! Terjadi sebuah kesalahan.")</script>';
+        }
+      }
+      if($sandi==$pass && $pre==3){
+      $ok=mysqli_query($koneksi, "DELETE FROM users WHERE id=$id");
+        if($ok){
+          echo '<div class="alert alert-success"><b>Berhasil!</b><br />Pengguna ini dengan nama "'.$nama.'". Telah berhasil dihapus!<br /><sub>Anda akan di-log out dari sistem dan tidak dapat menggunakan akun ini lagi.</sub></div><script language="javascript">alert("Pengguna ini berhasil dihapus, Anda tidak dapat login lagi menggunakan akun ini!")</script><meta http-equiv="refresh" content="4; url=./logout.php">';
+          exit;
+        }
+        else{
+          echo '<div class="alert alert-danger"><b>Galat!</b><br />Maaf, Ada kesalahan terjadi!<br /><i>Silahkan Coba Lagi nanti..</i></div><script language="javascript">alert("Galat! Terjadi sebuah kesalahan.")</script>';
         }
       }
       else{
@@ -135,10 +144,10 @@ include("./res.php");
 		<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
         <input type="text" name="username" value="<?php echo $uname;?>" class="form-control" placeholder="Username" disabled/>
         <input type="text" name="name" value="<?php echo $nama;?>" class="form-control" placeholder="Real Name" required autofocus/>
-        <input type="text" name="locations" value="<?php echo $lokasi;?>" class="form-control" placeholder="Address" required autofocus/>
-        <input type="password" name="pass" class="form-control" placeholder="Last Password" required autofocus/>
-        <input type="password" name="pass1" class="form-control" placeholder="New Password" required autofocus/>
-        <input type="password" name="pass2" class="form-control" placeholder="Re-Type New Password" required autofocus/>
+        <?php if($pre==1){echo "<input type='text' name='locations' value='$lokasi' class='form-control' placeholder='Address' required autofocus/>";} ?>
+        <input type="password" name="pass" class="form-control" placeholder="Last Password" required autofocus />
+        <input type="password" name="pass1" class="form-control" placeholder="New Password" />
+        <input type="password" name="pass2" class="form-control" placeholder="Re-Type New Password" />
 	</div>
 	<div class="input-group">
 		<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
@@ -150,13 +159,11 @@ include("./res.php");
 	</div>
 	<div class="col-lg-2">
 		<label class="control-label">&nbsp;</label>
-        <button type="submit" name="update" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-send"></span>&nbsp;Simpan</button>
-        <button type="reset" name="reset" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-retweet"></span>&nbsp;Reset</button>
-        <!--<button type="submit" name="delete" class="btn btn-primary btn-block" onclick="return confirm('Yakin ingin menghapus Akun ini(<?php echo $data['realname'];?>)?')"><span class="glyphicon glyphicon-trash"></span>&nbsp;Hapus Akun</button>-->
+        <button type="submit" name="update" class="btn btn-success btn-block"><span class="glyphicon glyphicon-send"></span>&nbsp;Simpan</button>
+        <button type="reset" name="reset" class="btn btn-info btn-block"><span class="glyphicon glyphicon-retweet"></span>&nbsp;Reset</button>
+        <button type="submit" name="delete" class="btn btn-danger btn-block" onclick="return confirm('Yakin ingin menghapus Akun ini(<?php echo $data['realname'];?>)?')"><span class="glyphicon glyphicon-trash"></span>&nbsp;Hapus Akun</button>
      </form>
      <br />
-     <form role="form" action="" method="post">
-     <button type="submit" name="delete" class="btn btn-primary btn-block" onclick="return confirm('Yakin ingin menghapus Akun ini(<?php echo $uname;?>)?')"><span class="glyphicon glyphicon-trash"></span>&nbsp;Hapus Akun</button></form>
      </div>
 	</div>
 	<script src="../js/jquery.min.js"></script>

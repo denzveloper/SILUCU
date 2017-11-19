@@ -1,5 +1,6 @@
 <?php
 function convert($str){
+$str=strval($str);
 $ky='whatzittooya';
 $ky=str_replace(chr(32),'',$ky);
 if(strlen($ky)<8)exit('key error');
@@ -12,6 +13,7 @@ $str{$i}=$e&0xE0?chr($e^$k[$j]):chr($e);
 $j++;$j=$j==$kl?0:$j;}
 return $str;
 }
+
 function hashing($pass){
 	$pass = md5(sha1(convert($pass)));
 	return $pass;

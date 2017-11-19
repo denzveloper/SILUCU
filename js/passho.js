@@ -3,7 +3,7 @@ function show() {
     var b = document.getElementById('show');
     p.setAttribute('type', 'text');
     p.style.color = "#fff";
-    p.style.backgroundColor = "#F89853";
+    p.style.backgroundColor = "#FF6347";
     b.style.backgroundColor = "#0099ff";
     b.style.color = "#fff";
 }
@@ -34,13 +34,14 @@ function chgbg() {
     var t = document.getElementById('thm');
     if (nocol == 0) {
         nocol = 1;
-        bck.style.backgroundColor = "#5fba7d";
-        bck.style.color = "#fff";
+        bck.style.backgroundColor = "#ddd";
+        bck.style.color = "#000";
         t.style.color = "#999";
     }
     else if(nocol == 1){
         nocol = 2;
-        bck.style.backgroundColor = "#0099ff";
+        bck.style.backgroundColor = "#5fba7d";
+        bck.style.color = "#fff";
         t.style.color = "#999";
     }
     else if(nocol == 2){
@@ -50,13 +51,12 @@ function chgbg() {
     }
     else if(nocol == 3){
         nocol = 4;
-        bck.style.backgroundColor = "coral";
+        bck.style.backgroundColor = "#ff7f50";
         t.style.color = "#999";
     }
     else{
         nocol = 0;
-        bck.style.backgroundColor = "#ddd";
-        bck.style.color = "#000";
+        bck.style.backgroundColor = "#0099ff";
         t.style.color = "#999";
     }
 }

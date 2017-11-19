@@ -1,14 +1,13 @@
 <?php
-session_start();
 include("./res.php");
 if($pre>2)
   header("Location: ./index.php");
-$username = "";
-$nama = "";
-$lokasi = "";
+$usrnm = "";
+$nambar = "";
+$tpt = "";
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,7 +18,7 @@ $lokasi = "";
 	<link href="../css/styles.css" rel="stylesheet">
 	<style>
 		body {
-			background-color:#eee;
+			background-color: #eee;
 		}
 	</style>
 	<!--[if lt IE 9]>
@@ -40,7 +39,7 @@ $lokasi = "";
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#"><?php echo $appnam; ?></a>
+              <a class="navbar-brand" href="index.php"><?php echo $appnam; ?></a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
@@ -70,22 +69,38 @@ $lokasi = "";
     <div class="container marketing">
     <?php
     if(isset($_POST['create'])){
-          $username = addslashes(trim($_POST['username']));
-          $nama = $_POST['name'];
-          $lokasi = ucfirst($_POST['locations']);
+          $usrnm = addslashes(trim($_POST['username']));
+          $nambar = strtoupper($_POST['name']);
+          if($pre==1){
+            $tpt= ucfirst($_POST['locations']);}
+          else{
+            $tpt = $lokasi;
+          }
           $akses = $_POST['access'];
           //Password
           $pass1 = $_POST['pass1'];
           $pass2 = $_POST['pass2'];
           $pass = hashing($pass1);
           if($pass1==$pass2){
-            if(($akses<3 && $pre==1) || ($akses==3 && $pre<3)){
-              $ok=mysqli_query($koneksi, "INSERT INTO users (id, username, realname, locations, password, level) VALUES (NULL, '$username', '$nama', '$lokasi', '$pass', '$akses')");
+            if($akses<4 && $akses>0 && $pre==1){
+              $ok=mysqli_query($koneksi, "INSERT INTO users (id, username, realname, locations, password, level) VALUES (NULL, '$usrnm', '$nambar', '$tpt', '$pass', '$akses')");
               if($ok){
-                echo '<div class="alert alert-success"><b>Berhasil!</b><br />Pengguna "'.$username.'" Telah berhasil dibuat!</div>';
-                $username = "";
-                $nama = "";
-                $lokasi = "";
+                echo '<div class="alert alert-success"><b>Berhasil!</b><br />Pengguna "'.$usrnm.'" Telah berhasil dibuat!</div>';
+                $usrnm = "";
+                $nambar = "";
+                $tpt = "";
+              }
+              else{
+                echo '<div class="alert alert-danger"><b>Galat!</b><br />Maaf, Ada kesalahan terjadi!<br /><i>Coba Lagi nanti..</i></div>';
+              }
+            }
+            else if($akses==3 && $pre==2){
+              $ok=mysqli_query($koneksi, "INSERT INTO users (id, username, realname, locations, password, level) VALUES (NULL, '$usrnm', '$nambar', '$tpt', '$pass', '$akses')");
+              if($ok){
+                echo '<div class="alert alert-success"><b>Berhasil!</b><br />Pengguna "'.$usrnm.'" Telah berhasil dibuat!</div>';
+                $usrnm = "";
+                $nambar = "";
+                $tpt = "";
               }
               else{
                 echo '<div class="alert alert-danger"><b>Galat!</b><br />Maaf, Ada kesalahan terjadi!<br /><i>Coba Lagi nanti..</i></div>';
@@ -96,7 +111,7 @@ $lokasi = "";
             }
           }
           else{
-            echo '<div class="alert alert-danger"><b>Galat saat membuat!</b><br />Kedua password tidak cocok!</div>';
+            echo '<div class="alert alert-danger"><b>Galat saat membuat!</b><br />Kedua Password(Kata sandi) tidak cocok!</div>';
           }
     }
     ?>
@@ -105,9 +120,9 @@ $lokasi = "";
 		 <label class="control-label">Informasi dasar</label>
 	 <div class="input-group">
 		<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-        <input type="text" name="username" value="<?php echo $username;?>" class="form-control" placeholder="Username" required autofocus/>
-        <input type="text" name="name" value="<?php echo $nama;?>" class="form-control" placeholder="Real Name" required autofocus/>
-        <input type="text" name="locations" value="<?php echo $lokasi;?>" class="form-control" placeholder="Address" required autofocus/>
+        <input type="text" name="username" value="<?php echo $usrnm;?>" class="form-control" placeholder="Username" required autofocus/>
+        <input type="text" name="name" value="<?php echo $nambar;?>" class="form-control" placeholder="Real Name" required autofocus/>
+        <?php if($pre==1){ echo "<input type='text' name='locations' value='$tpt' class='form-control' placeholder='Address' required autofocus/>";} ?>
         <input type="password" name="pass1" class="form-control" placeholder="Password" required autofocus/>
         <input type="password" name="pass2" class="form-control" placeholder="Repeat password" required autofocus/>
 	</div>
@@ -115,7 +130,7 @@ $lokasi = "";
 	<div class="input-group">
 		<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 		<select name="access" class="form-control" required autofocus>
-        <option value="-">-</option>
+        <option value="0">-</option>
         <option value="1" <?php if($pre!=1) echo "disabled";?>>Super User</option>
         <option value="2" <?php if($pre!=1) echo "disabled";?>>Admin Cabang</option>
         <option value="3">Petugas Pengisian Data</option>
@@ -127,8 +142,8 @@ $lokasi = "";
 	</div>
 	<div class="col-lg-2">
 		<label class="control-label">&nbsp;</label>
-        <button type="submit" name="create" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;Simpan</button>
-        <button type="reset" name="reset" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-trash"></span>&nbsp;Reset</button>
+        <button type="submit" name="create" class="btn btn-success btn-block"><span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;Simpan</button>
+        <button type="reset" name="reset" class="btn btn-info btn-block"><span class="glyphicon glyphicon-retweet"></span>&nbsp;Reset</button>
 	</div>
      </form>
 	</div>

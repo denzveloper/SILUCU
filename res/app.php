@@ -22,8 +22,9 @@ POLITEKNIK NEGERI INDRAMAYU
 OUR CLIENT/TO:
 PDAM KABUPATEN INDRAMAYU
 *****************************/
-$ver='0.3 ALPHA';
+$ver='0.4.1 ALPHA';
 $now=date('Y');
+$tgl=date("j-M-Y");
 $begin=2017;
 $appnam='SILCU';
 ?>

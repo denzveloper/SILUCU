@@ -1,5 +1,4 @@
 <?php
-session_start();
 include("./res.php");
 if($pre>2)
   header("Location: ./index.php");
@@ -7,7 +6,7 @@ $ambil=mysqli_query($koneksi, "SELECT * FROM users");
 $k=0;
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,7 +17,7 @@ $k=0;
 	<link href="../css/styles.css" rel="stylesheet">
 	<style>
 		body {
-			background-color:#eee;
+			background-color: #eee;
 		}
 	</style>
 	<!--[if lt IE 9]>
@@ -39,7 +38,7 @@ $k=0;
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#"><?php echo $appnam; ?></a>
+              <a class="navbar-brand" href="index.php"><?php echo $appnam; ?></a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
@@ -66,8 +65,8 @@ $k=0;
     </div>
   </div>
   <div class="container marketing">
+    <label class="control-label">Manager Akun</label>
     <div class="table-responsive">
-      <label class="control-label">Manager Akun</label>
       <table class="table">
       <thead>
       <tr>
@@ -76,6 +75,7 @@ $k=0;
       <td>Real Name</td>
       <td>Locations</td>
       <td>Actions</td>
+      </tr>
       <?php
         while($data=mysqli_fetch_array($ambil)){
           if($data['id']!=$idus && $data['level']!=$pre){
@@ -86,7 +86,7 @@ $k=0;
             <td>$data[username]</td>
             <td>$data[realname]</td>
             <td>$data[locations]</td>
-            <td><a href='./edit.php?idus=$data[id]' title='Manage User'><button>Manage</button></a></td>
+            <td><a href='./edit.php?idus=$data[id]' title='Manage User' class='btn btn-primary'>Manage</a></td>
             </tr>
             ";
             }
@@ -97,10 +97,13 @@ $k=0;
             <td>$data[username]</td>
             <td>$data[realname]</td>
             <td>$data[locations]</td>
-            <td><a href='./edit.php?idus=$data[id]' title='Manage User'><button>Manage</button></a></td>
+            <td><a href='./edit.php?idus=$data[id]' title='Manage User' class='btn btn-primary'>Manage</a></td>
             </tr>
             ";}
           }
+        }
+        if($k==0){
+              echo "<tr><td colspan='5' align='center'><h3>Pengguna Belum Ada!</h3><br /><a href='$z' title='Membuat Pengguna Baru!' class='btn btn-default'>Buat baru disini!</a></td></tr>";
         }
       ?>
     </thead>

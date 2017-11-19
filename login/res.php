@@ -1,4 +1,7 @@
+<link rel="shortcut icon" type="image/png" href="../favicon.png"/>
 <?php
+session_start();
+//check a trust login?
 if(empty($_SESSION)){
 	header("Location: ./logout.php");
 }
@@ -20,9 +23,11 @@ $uname=$_SESSION['username'];
 $user=$_SESSION['name'];
 $coks=convert(hashing($uname));
 $cokp=convert($sandi);
+//Cookies check it true?
 if($_COOKIE['u']!=$coks||$_COOKIE['s']!=$cokp||$_COOKIE['b']!=$bro||$_COOKIE['i']!=$ip){
 	header("Location: ./logout.php");
 }
+//Get Previlege and what is shown
 switch($pre){
 	case 1:
 		$account="Super User";
@@ -32,6 +37,8 @@ switch($pre){
 		$x="eduser.php";
 		$y="manuser.php";
 		$z="cruser.php";
+		$link=$c;
+		$ln="Melihat data-data cabang";
 	break;
 	case 2:
 		$account="Admin Cabang";
@@ -41,6 +48,8 @@ switch($pre){
 		$x="eduser.php";
 		$y="manuser.php";
 		$z="cruser.php";
+		$link=$b;
+		$ln="Verifikasi data-data";
 	break;
 	case 3:
 		$account="Petugas Isi Data";
@@ -50,6 +59,8 @@ switch($pre){
 		$x="eduser.php";
 		$y="#";
 		$z="#";
+		$link=$a;
+		$ln="Membuat data baru";
 	break;
 	default:
 		header("Location: ./logout.php");
