@@ -2,18 +2,23 @@
 include("./res.php");
 if($pre>2)
   header("Location: ./index.php");
-$idus=$_GET['idus'];
-if($idus==$id)
+$idpgn=$_GET['user'];
+if($idpgn==$username)
   header("Location: ./eduser.php");
-$ambil=mysqli_query($koneksi, "SELECT * FROM users where id='$idus'");
+$ambil=mysqli_query($koneksi, "SELECT * FROM users where username='$idpgn'");
 $data=mysqli_fetch_array($ambil);
 $lvl=$data['level'];
 $tkt=$lvl;
+if($tkt<$pre)
+  header("Location: ./manuser.php");
 if($lvl==2){
   $lvl="Admin Cabang";
 }
-if($lvl==3){
+elseif($lvl==3){
   $lvl="Petugas Isi Data";
+}
+else{
+  header("Location: ./manuser.php");
 }
 ?>
 <!DOCTYPE html>
@@ -57,14 +62,14 @@ if($lvl==3){
                 <li><a href="<?php echo $b;?>">Menu 2</a></li>
                 <li><a href="<?php echo $c;?>">Menu 3</a></li>
                 <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo "$user"; ?> <span class="caret"></span></a>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $nama; ?> <span class="caret"></span></a>
                   <ul class="dropdown-menu">
 					          <li><a href="<?php echo $x;?>">Edit Profil</a></li>
                     <li class="active"><a href="<?php echo $y;?>">Akun Manager</a></li>
                     <li><a href="<?php echo $z;?>">Buat akun baru</a></li>
                     <li role="separator" class="divider"></li>
                     <li class="dropdown-header">Log Keluar</li>
-                    <li><a href="logout.php" onclick="return confirm('<?php echo $user;?> Yakin, ingin keluar dari <?php echo $appnam ?>?')"><?php echo "$user";?></a></li>
+                    <li><a href="logout.php" onclick="return confirm('<?php echo $nama;?> Yakin, ingin keluar dari <?php echo $appnam ?>?')"><?php echo $nama;?></a></li>
                   </ul>
                 </li>
               </ul>
@@ -99,7 +104,7 @@ if($lvl==3){
         else{
           $tingkat=$data['level'];
         }
-        $ok=mysqli_query($koneksi, "UPDATE users SET realname='$namae', locations='$lokasie', password='$pass', level='$tingkat' WHERE id=$idus");
+        $ok=mysqli_query($koneksi, "UPDATE users SET realname='$namae', locations='$lokasie', password='$pass', level='$tingkat' WHERE username='$idpgn'");
         if($ok){
           echo '<div class="alert alert-success"><b>Berhasil!</b><br />Pengguna "'.$namae.'" Telah berhasil diperbarui!<br /></div>';
         }
@@ -108,7 +113,7 @@ if($lvl==3){
         }
       }
       else if($pre==2 && $pass1==$pass2){
-        $ok=mysqli_query($koneksi, "UPDATE users SET realname='$namae', locations='$lokasi', password='$pass' WHERE id='$idus'");
+        $ok=mysqli_query($koneksi, "UPDATE users SET realname='$namae', locations='$lokasi', password='$pass' WHERE username='$idpgn'");
         if($ok){
           echo '<div class="alert alert-success"><b>Berhasil!</b><br>Pengguna "'.$namae.'" Telah berhasil diperbarui!<br></div>';
         }
@@ -125,7 +130,7 @@ if($lvl==3){
       $tpt=$data['locations'];
       $ok=mysqli_query($koneksi, "DELETE FROM users WHERE locations='$tpt' and level>1");
         if($ok){
-          echo '<div class="alert alert-success"><b>Berhasil!</b><br />Pengguna "'.$namae.'" dan "'.$tpt.' Telah berhasil dihapus!<br /><sub>Anda akan dialihkan kehalaman Manager User kembali.</sub></div><meta http-equiv="refresh" content="4; url=./manuser.php">';
+          echo '<div class="alert alert-success"><b>Berhasil!</b><br />Pengguna "'.$namae.'" dan "'.$tpt.' Telah berhasil dihapus!<br /><sub>Anda akan dialihkan kehalaman Manager User kembali.</sub></div><h4><b><a href="./manuser.php" title="Back to Manage User">&#171;Kembali</a></b></h4><meta http-equiv="refresh" content="3; url=./manuser.php">';
           exit;
         }
         else{
@@ -133,9 +138,9 @@ if($lvl==3){
         } 
       }
       if($tkt==3){
-      $ok=mysqli_query($koneksi, "DELETE FROM users WHERE id=$idus");
+      $ok=mysqli_query($koneksi, "DELETE FROM users WHERE username='$idpgn'");
       if($ok){
-          echo '<div class="alert alert-success"><b>Berhasil!</b><br />Pengguna "'.$namae.'" Telah berhasil dihapus!<br /><sub>Anda akan dialihkan kehalaman Manager User kembali.</sub></div><meta http-equiv="refresh" content="4; url=./manuser.php">';
+          echo '<div class="alert alert-success"><b>Berhasil!</b><br />Pengguna "'.$namae.'" Telah berhasil dihapus!<br /><sub>Anda akan dialihkan kehalaman Manager User kembali.</sub></div><h4><b><a href="./manuser.php" title="Back to Manage User">&#171;Kembali</a></b></h4><meta http-equiv="refresh" content="3; url=./manuser.php">';
           exit;
         }
         else{
@@ -146,7 +151,7 @@ if($lvl==3){
     ?>
 	 <form role="form" action="" method="post">
 		 <div class="col-lg-9">
-		 <label class="control-label">Edit data dari "<?php echo $data['realname']; ?>"</label>
+		 	<h3><b>Edit data dari "<?php echo $data['realname']; ?>"</b></h3>
 	 <div class="input-group">
 		<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
         <input type="text" name="username" value="<?php echo $data['username'];?>" class="form-control" placeholder="Username" disabled/>

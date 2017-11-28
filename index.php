@@ -1,14 +1,14 @@
 <?php
 session_start();
 if($_SESSION){
-	header("Location: ./login");
+	header("location: ./login");
 }
 include("./res/app.php");
 ?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
-	<link rel="shortcut icon" type="image/png" href="./favicon.png"/>
+	<link rel="shortcut icon" type="image/png" href="./img/silcu-logo.png"/>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,7 +40,7 @@ include("./res/app.php");
 					$password = hashing(addslashes(trim($_POST['password'])));
 					$query = mysqli_query($koneksi, "SELECT * FROM users WHERE username='$username' AND password='$password'");
 					if(mysqli_num_rows($query) == 0){
-						echo '<div class="alert alert-danger"><b>Log Masuk Gagal!</b><br><span title="Harap perhatikan Kapitalisasi huruf!" style="cursor: help;">User dan Password tidak cocok!</span></div>';
+						echo '<div class="alert alert-danger"><b>Log Masuk Gagal!</b><br><span title="Harap perhatikan Kapitalisasi huruf!" style="cursor: help;">User dan Password tidak cocok!</span></div><script language="javascript">alert("Login Gagal!");</script>';
 					}else{
 						$row = mysqli_fetch_assoc($query);
 						if($row['username']==$username && $row['password']==$password){
@@ -55,13 +55,11 @@ include("./res/app.php");
 							setcookie("i", $add, $ttl, '/');
 							setcookie("s", $pwd, $ttl, '/');
 							//Session
-							$_SESSION['id']=$row['id'];
-							$_SESSION['name']=$row['realname'];
-							$_SESSION['username']=$username;
-							header("Location: ./login");
+							$_SESSION['id']=convert($row['username']);
+							header("location: ./login");
 						}
 						else{
-							echo '<div class="alert alert-danger"><b>Log Masuk Gagal!</b><br>User dan Password tidak cocok!</div>';
+							echo '<div class="alert alert-danger"><b>Log Masuk Gagal!</b><br>User dan Password tidak cocok!</div><script language="javascript">alert("Login Gagal!");</script>';
 						}
 					}
 					}
@@ -80,7 +78,7 @@ include("./res/app.php");
 				</form>
 				<button class="chgt" id="thm" title="Change Background" onclick="chgbg()"><span class="glyphicon glyphicon-refresh"></span></button>
 			</div>
-    		<?php echo "<b>$appnam</b> <i>$ver</i>"; ?> &#169;<?php echo $begin . (($begin != $now) ? '-' . $now : ''); ?> PDAM dan POLINDRA
+    		<?php echo "<b>$appnam</b> <i>$ver</i>"; ?> &#169;<?php echo $begin . (($begin != $now) ? '-' . $now : ''); ?> PDAM &amp; POLINDRA
 		</div>
 	</div>
 	<script src="./js/jquery.min.js"></script>

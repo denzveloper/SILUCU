@@ -42,14 +42,14 @@ include("./res.php");
                 <li><a href="<?php echo $b;?>">Menu 2</a></li>
                 <li><a href="<?php echo $c;?>">Menu 3</a></li>
                 <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo "$user"; ?> <span class="caret"></span></a>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $nama; ?> <span class="caret"></span></a>
                   <ul class="dropdown-menu">
 					          <li class="active"><a href="<?php echo $x;?>">Edit Profil</a></li>
                     <li><a href="<?php echo $y;?>">Akun Manager</a></li>
                     <li><a href="<?php echo $z;?>">Buat akun baru</a></li>
                     <li role="separator" class="divider"></li>
                     <li class="dropdown-header">Log Keluar</li>
-                    <li><a href="logout.php" onclick="return confirm('<?php echo $user;?> Yakin, ingin keluar dari <?php echo $appnam ?>?')"><?php echo "$user";?></a></li>
+                    <li><a href="logout.php" onclick="return confirm('<?php echo $nama;?> Yakin, ingin keluar dari <?php echo $appnam ?>?')"><?php echo $nama;?></a></li>
                   </ul>
                 </li>
               </ul>
@@ -76,9 +76,9 @@ include("./res.php");
             $pass=$sandi;
           }
           if($pass1==$pass2){
-              $ok=mysqli_query($koneksi, "UPDATE users SET realname='$nama', locations='$lokasi', password='$pass' WHERE id=$id");
+              $ok=mysqli_query($koneksi, "UPDATE users SET realname='$nama', locations='$lokasi', password='$pass' WHERE username='$username'");
               if($ok){
-                echo '<div class="alert alert-success"><b>Berhasil!</b><br />Pengguna "'.$username.'" Telah berhasil diperbarui!<br /><sub>Demi keamanan Anda akan otomatis akan Logout dan Masuklah dengan Sandi baru.</sub></div><script language="javascript">alert("Pengguna ini berhasil diperbarui, Silahkan login kembali!")</script><meta http-equiv="refresh" content="4; url=./logout.php">';
+                echo '<div class="alert alert-success"><b>Berhasil!</b><br />Pengguna "'.$username.'" Telah berhasil diperbarui!<br /><sub>Demi keamanan Anda akan otomatis akan Logout dan Masuklah dengan Sandi baru.</sub></div><script language="javascript">alert("Pengguna ini berhasil diperbarui, Silahkan login kembali!")</script><meta http-equiv="refresh" content="3; url=./logout.php">';
               }
               else{
                 echo '<div class="alert alert-danger"><b>Galat!</b><br />Maaf, Ada kesalahan terjadi!<br /><i>Coba Lagi nanti..</i></div>';
@@ -103,9 +103,9 @@ include("./res.php");
       $pass = strval($_POST['pass']);
       $pass = hashing($pass);
       if($pre==1&&$sandi==$pass&&$adm>1){
-      $ok=mysqli_query($koneksi, "DELETE FROM users WHERE id=$id");
+      $ok=mysqli_query($koneksi, "DELETE FROM users WHERE username='$username'");
         if($ok){
-          echo '<div class="alert alert-success"><b>Berhasil!</b><br />Pengguna ini dengan nama "'.$nama.'". Telah berhasil dihapus!<br /><sub>Anda akan di-log out dari sistem dan tidak dapat menggunakan akun ini lagi.</sub></div><script language="javascript">alert("Pengguna ini berhasil dihapus, Anda tidak dapat login lagi menggunakan akun ini!")</script><meta http-equiv="refresh" content="4; url=./logout.php">';
+          echo '<div class="alert alert-success"><b>Berhasil!</b><br />Pengguna ini dengan nama "'.$nama.'". Telah berhasil dihapus!<br /><sub>Anda akan di-log out dari sistem dan tidak dapat menggunakan akun ini lagi.</sub></div><script language="javascript">alert("Pengguna ini berhasil dihapus, Anda tidak dapat login lagi menggunakan akun ini!")</script><meta http-equiv="refresh" content="3; url=./logout.php">';
           exit;
         }
         else{
@@ -115,7 +115,7 @@ include("./res.php");
       if($sandi==$pass && $pre==2){
       $ok=mysqli_query($koneksi, "DELETE FROM users WHERE locations='$lokasi' and level>1");
         if($ok){
-          echo '<div class="alert alert-success"><b>Berhasil!</b><br />Pengguna ini dengan nama "'.$nama.'". Telah berhasil dihapus!<br /><sub>Anda akan di-log out dari sistem dan tidak dapat menggunakan akun ini lagi.</sub></div><script language="javascript">alert("Pengguna ini berserta pengguna yang bertempat sama berhasil dihapus, Anda tidak dapat login lagi menggunakan akun ini!")</script><meta http-equiv="refresh" content="4; url=./logout.php">';
+          echo '<div class="alert alert-success"><b>Berhasil!</b><br />Pengguna ini dengan nama "'.$nama.'". Telah berhasil dihapus!<br /><sub>Anda akan di-log out dari sistem dan tidak dapat menggunakan akun ini lagi.</sub></div><script language="javascript">alert("Pengguna ini berserta pengguna yang bertempat sama berhasil dihapus, Anda tidak dapat login lagi menggunakan akun ini!")</script><meta http-equiv="refresh" content="3; url=./logout.php">';
           exit;
         }
         else{
@@ -123,9 +123,9 @@ include("./res.php");
         }
       }
       if($sandi==$pass && $pre==3){
-      $ok=mysqli_query($koneksi, "DELETE FROM users WHERE id=$id");
+      $ok=mysqli_query($koneksi, "DELETE FROM users WHERE username='$username'");
         if($ok){
-          echo '<div class="alert alert-success"><b>Berhasil!</b><br />Pengguna ini dengan nama "'.$nama.'". Telah berhasil dihapus!<br /><sub>Anda akan di-log out dari sistem dan tidak dapat menggunakan akun ini lagi.</sub></div><script language="javascript">alert("Pengguna ini berhasil dihapus, Anda tidak dapat login lagi menggunakan akun ini!")</script><meta http-equiv="refresh" content="4; url=./logout.php">';
+          echo '<div class="alert alert-success"><b>Berhasil!</b><br />Pengguna ini dengan nama "'.$nama.'". Telah berhasil dihapus!<br /><sub>Anda akan di-log out dari sistem dan tidak dapat menggunakan akun ini lagi.</sub></div><script language="javascript">alert("Pengguna ini berhasil dihapus, Anda tidak dapat login lagi menggunakan akun ini!")</script><meta http-equiv="refresh" content="3; url=./logout.php">';
           exit;
         }
         else{
@@ -139,10 +139,10 @@ include("./res.php");
     ?>
 	 <form role="form" action="" method="post">
 		 <div class="col-lg-9">
-		 <label class="control-label">Edit data</label>
+		 	<h3><b>Edit data</b></h3>
 	 <div class="input-group">
 		<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-        <input type="text" name="username" value="<?php echo $uname;?>" class="form-control" placeholder="Username" disabled/>
+        <input type="text" name="username" value="<?php echo $username;?>" class="form-control" placeholder="Username" disabled/>
         <input type="text" name="name" value="<?php echo $nama;?>" class="form-control" placeholder="Real Name" required autofocus/>
         <?php if($pre==1){echo "<input type='text' name='locations' value='$lokasi' class='form-control' placeholder='Address' required autofocus/>";} ?>
         <input type="password" name="pass" class="form-control" placeholder="Last Password" required autofocus />

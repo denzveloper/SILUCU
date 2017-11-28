@@ -1,4 +1,10 @@
 <?php
+include "redirect.php";
+$ver="0.5.2 ALPHA";
+$now=date("Y");
+$tgl=date("j-M-Y");
+$begin=2017;
+$appnam="SILCU";
 /****************************
 CREATED BY:
 1. DANIYAH HAYATI
@@ -7,7 +13,11 @@ CREATED BY:
 4. NANDIA R. N.
 5. MAWAR UTARI
 
-SYSTEM BY:
+SYSTEM LOGIN BY:
+DENZVELOPER aka DzEN
+
+PASSWORD Encryption By:
+halojoy
 DENZVELOPER aka DzEN
 
 DESIGN BY:
@@ -21,10 +31,11 @@ POLITEKNIK NEGERI INDRAMAYU
 
 OUR CLIENT/TO:
 PDAM KABUPATEN INDRAMAYU
+
+THANKS:
+GOOGLE
+STACK OFER FLOW
+W3SCHOOLS
+BOOTSTRAP
 *****************************/
-$ver='0.4.1 ALPHA';
-$now=date('Y');
-$tgl=date("j-M-Y");
-$begin=2017;
-$appnam='SILCU';
 ?>

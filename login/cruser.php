@@ -48,14 +48,14 @@ $tpt = "";
                 <li><a href="<?php echo $b;?>">Menu 2</a></li>
                 <li><a href="<?php echo $c;?>">Menu 3</a></li>
                 <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo "$user"; ?> <span class="caret"></span></a>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $nama; ?> <span class="caret"></span></a>
                   <ul class="dropdown-menu">
 					          <li><a href="<?php echo $x;?>">Edit Profil</a></li>
                     <li><a href="<?php echo $y;?>">Akun Manager</a></li>
                     <li class="active"><a href="<?php echo $z;?>">Buat akun baru</a></li>
                     <li role="separator" class="divider"></li>
                     <li class="dropdown-header">Log Keluar</li>
-                    <li><a href="logout.php" onclick="return confirm('<?php echo $user;?> Yakin, ingin keluar dari <?php echo $appnam ?>?')"><?php echo "$user";?></a></li>
+                    <li><a href="logout.php" onclick="return confirm('<?php echo $nama;?> Yakin, ingin keluar dari <?php echo $appnam ?>?')"><?php echo $nama;?></a></li>
                   </ul>
                 </li>
               </ul>
@@ -83,7 +83,7 @@ $tpt = "";
           $pass = hashing($pass1);
           if($pass1==$pass2){
             if($akses<4 && $akses>0 && $pre==1){
-              $ok=mysqli_query($koneksi, "INSERT INTO users (id, username, realname, locations, password, level) VALUES (NULL, '$usrnm', '$nambar', '$tpt', '$pass', '$akses')");
+              $ok=mysqli_query($koneksi, "INSERT INTO users (username, realname, locations, password, level) VALUES ('$usrnm', '$nambar', '$tpt', '$pass', '$akses')");
               if($ok){
                 echo '<div class="alert alert-success"><b>Berhasil!</b><br />Pengguna "'.$usrnm.'" Telah berhasil dibuat!</div>';
                 $usrnm = "";
@@ -95,7 +95,7 @@ $tpt = "";
               }
             }
             else if($akses==3 && $pre==2){
-              $ok=mysqli_query($koneksi, "INSERT INTO users (id, username, realname, locations, password, level) VALUES (NULL, '$usrnm', '$nambar', '$tpt', '$pass', '$akses')");
+              $ok=mysqli_query($koneksi, "INSERT INTO users (username, realname, locations, password, level) VALUES ('$usrnm', '$nambar', '$tpt', '$pass', '$akses')");
               if($ok){
                 echo '<div class="alert alert-success"><b>Berhasil!</b><br />Pengguna "'.$usrnm.'" Telah berhasil dibuat!</div>';
                 $usrnm = "";
@@ -117,7 +117,7 @@ $tpt = "";
     ?>
 	 <form role="form" action="" method="post">
 		 <div class="col-lg-9">
-		 <label class="control-label">Informasi dasar</label>
+		 <h3><b>Informasi dasar</b></h3>
 	 <div class="input-group">
 		<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
         <input type="text" name="username" value="<?php echo $usrnm;?>" class="form-control" placeholder="Username" required autofocus/>

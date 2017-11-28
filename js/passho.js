@@ -1,4 +1,4 @@
-function show() {
+function show(){
     var p = document.getElementById('pwd');
     var b = document.getElementById('show');
     p.setAttribute('type', 'text');
@@ -7,8 +7,7 @@ function show() {
     b.style.backgroundColor = "#0099ff";
     b.style.color = "#fff";
 }
-
-function hide() {
+function hide(){
     var p = document.getElementById('pwd');
     var b = document.getElementById('show');
     p.setAttribute('type', 'password');
@@ -19,20 +18,32 @@ function hide() {
 }
 var pwShown = 0;
 document.getElementById("show").addEventListener("click", function () {
-    if (pwShown == 0) {
+    if (pwShown == 0){
         pwShown = 1;
+        alertingme();
         show();
-    } else {
+    }else{
         pwShown = 0;
         hide();
     }
 }, false);
 
+function alertingme(){
+ var el = document.createElement("div");
+ duration = 2500;//durasi dalam milidetik
+ el.setAttribute("style","position:fixed;top:50%;left:30%;background-color:#FF6347;text-shadow: 3px 3px 2px rgba(0, 0, 0, 0.2);border: 1px solid #ccc;");
+ el.innerHTML = "Kata sandi Terlihat! Pastikan Anda mengetiknya dengan Aman!";
+ setTimeout(function(){
+  el.parentNode.removeChild(el);
+ },duration);
+ document.body.appendChild(el);
+}
+
 var nocol = 0;
-function chgbg() {
+function chgbg(){
     var bck = document.getElementById("back");
     var t = document.getElementById('thm');
-    if (nocol == 0) {
+    if (nocol == 0){
         nocol = 1;
         bck.style.backgroundColor = "#ddd";
         bck.style.color = "#000";

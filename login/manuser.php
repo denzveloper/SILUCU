@@ -47,14 +47,14 @@ $k=0;
                 <li><a href="<?php echo $b;?>">Menu 2</a></li>
                 <li><a href="<?php echo $c;?>">Menu 3</a></li>
                 <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo "$user"; ?> <span class="caret"></span></a>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $nama; ?> <span class="caret"></span></a>
                   <ul class="dropdown-menu">
 					          <li><a href="<?php echo $x;?>">Edit Profil</a></li>
                     <li class="active"><a href="<?php echo $y;?>">Akun Manager</a></li>
                     <li><a href="<?php echo $z;?>">Buat akun baru</a></li>
                     <li role="separator" class="divider"></li>
                     <li class="dropdown-header">Log Keluar</li>
-                    <li><a href="logout.php" onclick="return confirm('<?php echo $user;?> Yakin, ingin keluar dari <?php echo $appnam ?>?')"><?php echo "$user";?></a></li>
+                    <li><a href="logout.php" onclick="return confirm('<?php echo $nama;?> Yakin, ingin keluar dari <?php echo $appnam ?>?')"><?php echo $nama;?></a></li>
                   </ul>
                 </li>
               </ul>
@@ -65,20 +65,36 @@ $k=0;
     </div>
   </div>
   <div class="container marketing">
-    <label class="control-label">Manager Akun</label>
-    <div class="table-responsive">
-      <table class="table">
+    <h3><b>Manager Akun</b></h3>
+    <div class="row">
+    	<form role="form" action="" method="get">
+    		<div class="col-lg-3">
+    		<input type="text" name="cari" class="form-control" placeholder="Cari.." />
+    		</div>
+    		<div class="col-lg-2">
+    		<button type="submit" name="search" class="btn btn-success btn-block"><span class="glyphicon glyphicon-search"></span>&nbsp;Cari!</button>
+    		</div>
+    	</form>
+    	</div>
+      <br />
+      <table class="table table-hover table-responsive">
       <thead>
-      <tr>
-      <td>#</td>
-      <td>Username</td>
-      <td>Real Name</td>
-      <td>Locations</td>
-      <td>Actions</td>
+      <tr class="bg-primary">
+      <th>#</th>
+      <th>Username</th>
+      <th>Real Name</th>
+      <th>Locations</th>
+      <th>Actions</th>
       </tr>
+      </thead>
       <?php
+      	if(isset($_GET['search'])&&isset($_GET['cari'])){
+      		$cari=$_GET['cari'];
+      		//Fuzzy Search Algorithm
+      		$ambil=mysqli_query($koneksi, "SELECT * FROM users WHERE username LIKE '%$cari%' OR realname LIKE '%$cari%' OR locations LIKE '%$cari%'");
+      	}
         while($data=mysqli_fetch_array($ambil)){
-          if($data['id']!=$idus && $data['level']!=$pre){
+          if($data['username']!=$username && $data['level']!=$pre){
             if($data['locations']==$lokasi && $data['level']>$pre){
             $k++;
             echo "<tr>
@@ -86,7 +102,7 @@ $k=0;
             <td>$data[username]</td>
             <td>$data[realname]</td>
             <td>$data[locations]</td>
-            <td><a href='./edit.php?idus=$data[id]' title='Manage User' class='btn btn-primary'>Manage</a></td>
+            <td><a href='./edit.php?user=$data[username]' title='Manage User' class='btn btn-primary'><span class='glyphicon glyphicon-edit'></span><i>&nbsp;Manage</i></a></td>
             </tr>
             ";
             }
@@ -97,18 +113,25 @@ $k=0;
             <td>$data[username]</td>
             <td>$data[realname]</td>
             <td>$data[locations]</td>
-            <td><a href='./edit.php?idus=$data[id]' title='Manage User' class='btn btn-primary'>Manage</a></td>
+            <td><a href='./edit.php?user=$data[username]' title='Manage User' class='btn btn-primary'><span class='glyphicon glyphicon-edit'></span><i>&nbsp;Manage</i></a></td>
             </tr>
             ";}
           }
         }
+        if($k!=0&&isset($_GET['search'])){
+        	echo "<tr><td colspan='5' align='center'><a href='./manuser.php' title='Kembali'>&#171;Kembali..</a></td></tr>";
+        }
         if($k==0){
-              echo "<tr><td colspan='5' align='center'><h3>Pengguna Belum Ada!</h3><br /><a href='$z' title='Membuat Pengguna Baru!' class='btn btn-default'>Buat baru disini!</a></td></tr>";
+        		if(isset($_GET['search'])){
+        			echo "<tr><td colspan='5' align='center'><h1><span class='text-muted glyphicon glyphicon-search'></span></h1><h3>&nbsp;Pengguna Tidak Ditemukan!</h3><br /><a href='./manuser.php' title='Kembali..'>&#171;Kembali..</a></td></tr>";
+        		}
+        		else{
+          		echo "<tr><td colspan='5' align='center'><h1><span class='text-muted glyphicon glyphicon-user'></span></h1><h3>Pengguna Belum Ada!</h3><br /><a href='$z' title='Membuat Pengguna Baru!' class='btn btn-default'>Buat baru disini!</a></td></tr>";
+        		}
         }
       ?>
     </thead>
     </table>
-    </div>
   </div>
 	<script src="../js/jquery.min.js"></script>
 	<script src="../js/bootstrap.min.js"></script>
