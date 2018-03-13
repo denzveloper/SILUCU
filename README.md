@@ -10,3 +10,4 @@ Program ini Hanya untuk "REFERENSI" saja!
 Diperbolehkan untuk copy-paste. Tetapi, patuhlah pada Lisensi GPL v2!
 
 「This Text Using Indonesian」
+「If You doesnt understanding My text. You can translate it.」
