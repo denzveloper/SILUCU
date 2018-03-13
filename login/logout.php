@@ -1,14 +1,17 @@
 <?php
+//logout script
 session_start();
-$ttl=time()-3600*2;
-unset($_COOKIE['u']);
-unset($_COOKIE['b']);
-unset($_COOKIE['i']);
-unset($_COOKIE['s']);
-setcookie("u", '', $ttl, '/');
+//set cookies to null
+$ttl=time()-60*40;
+setcookie("a", '', $ttl, '/');
 setcookie("b", '', $ttl, '/');
 setcookie("i", '', $ttl, '/');
-setcookie("s", '', $ttl, '/');
+//unset cookies
+unset($_COOKIE['a']);
+unset($_COOKIE['b']);
+unset($_COOKIE['i']);
+//destroy session
 session_destroy();
+//back to login page
 header("Location: ../");
 ?>

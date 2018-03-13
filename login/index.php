@@ -7,19 +7,17 @@ include("./res.php");
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>PANEL <?php echo $appnam; ?> <?php echo $ver; ?></title>
+	<title>HOME <?php echo $appnam; ?> <?php echo $ver; ?></title>
 	<!-- Bootstrap -->
 	<link href="../css/bootstrap.min.css" rel="stylesheet">
 	<link href="../css/styles.css" rel="stylesheet">
   <style>
     body {
-      background-color: #eee;
+      background-color: #fbfbfb;
     }
   </style>
-	<!--[if lt IE 9]>
-	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-	<![endif]-->
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
 </head>
 <body>
 <div class="navbar-wrapper">
@@ -38,12 +36,12 @@ include("./res.php");
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="<?php echo $a;?>">Menu 1</a></li>
-                <li><a href="<?php echo $b;?>">Menu 2</a></li>
-                <li><a href="<?php echo $c;?>">Menu 3</a></li>
+                <li class="active"><a href="index.php">Home</a></li>
+                <li><a href="<?php echo $a;?>">Membuat Laporan</a></li>
+                <li><a href="<?php echo $b;?>">Verifikasi Laporan</a></li>
+                <li><a href="<?php echo $c;?>">Lihat Laporan</a></li>
                 <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo "$nama"; ?> <span class="caret"></span></a>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo singkat($nama); ?> <span class="caret"></span></a>
                   <ul class="dropdown-menu">
 					          <li><a href="<?php echo $x;?>">Edit Profil</a></li>
                     <li><a href="<?php echo $y;?>">Akun Manager</a></li>
@@ -63,15 +61,13 @@ include("./res.php");
     <!--Atas Bawah-->
     <div class="container marketing">
       <img class="featurette-image img-responsive center-block" src="../img/logos.png" width="90%" />
-      <h2 class="center-block text-center">SELAMAT DATANG DI APLIKASI WEB SILCU :: PDAM INDRAMAYU</h2>
+      <h2 class="center-block text-center opning">SELAMAT DATANG DI APLIKASI WEB <?php echo "$appnam";?> :: <?php echo "$client";?></h2>
       <p class="text-center">
         <a href="<?php echo $link; ?>"><button class="btn"><?php echo $ln;?></button></a>
       </p>
-<footer>
-			<p><strong><?php echo "$appnam <i>$ver</i>"; ?></strong> <b>-</b> <i>PDAM &amp; POLINDRA &#169; <?php echo $begin . (($begin != $now) ? '-' . $now : ''); ?></i></p>
-</footer>
+	<div class="bwh">
+		<p><strong><?php echo "$appnam <i>$ver</i>"; ?></strong> <b>-</b> <i>PDAM &amp; POLINDRA &#169; <?php echo $begin . (($begin != $now) ? '-' . $now : ''); ?></i></p>
+	</div>
 </div>
-	<script src="../js/jquery.min.js"></script>
-	<script src="../js/bootstrap.min.js"></script>
 </body>
 </html>

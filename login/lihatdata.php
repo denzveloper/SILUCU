@@ -1,31 +1,34 @@
 <?php
-include ("./res.php");
-if($pre!=1)
-	header("Location: ./index.php");
-$temp="";
-if(isset($_GET['cal']))
-	$tglvl=$_GET['cal'];
-else
-	$tglvl="$now-$bln-$har";
+include("./res.php");
+if($pre!=2)
+  header("Location: ./index.php");
+if($_GET['data']=="")
+    header("Location: ./verifikasi.php");
+$tabel=$_GET['data'];
+$query=mysqli_query($koneksi, "SELECT * FROM data WHERE id=$tabel AND lokasi='$lokasi'");
+$data=mysqli_fetch_array($query);
+if(!isset($data['id'])){
+    header("Location: ./verifikasi.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Tampil Data :: <?php echo $appnam; ?> <?php echo $ver; ?></title>
-	<!-- Bootstrap -->
-	<link href="../css/bootstrap.min.css" rel="stylesheet">
-	<link href="../css/styles.css" rel="stylesheet">
-	<style>
-		body {
-			background-color: #fbfbfb;
-		}
-	</style>
-</head>
-<script src="../js/jquery.min.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rincian Data :: <?php echo $appnam; ?> <?php echo $ver; ?></title>
+    <!-- Bootstrap -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #fbfbfb;
+        }
+    </style>
+    <script src="../js/jquery.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
+</head>
 <body>
 <div class="navbar-wrapper">
       <div class="container">
@@ -44,12 +47,12 @@ else
               <ul class="nav navbar-nav">
                 <li><a href="index.php">Home</a></li>
                 <li><a href="<?php echo $a;?>">Membuat Laporan</a></li>
-                <li><a href="<?php echo $b;?>">Verifikasi Laporan</a></li>
-                <li class="active"><a href="<?php echo $c;?>">Lihat Laporan</a></li>
+                <li class="active"><a href="<?php echo $b;?>">Verifikasi Laporan</a></li>
+                <li><a href="<?php echo $c;?>">Lihat Laporan</a></li>
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo singkat($nama); ?> <span class="caret"></span></a>
                   <ul class="dropdown-menu">
-					          <li><a href="<?php echo $x;?>">Edit Profil</a></li>
+                              <li><a href="<?php echo $x;?>">Edit Profil</a></li>
                     <li><a href="<?php echo $y;?>">Akun Manager</a></li>
                     <li><a href="<?php echo $z;?>">Buat akun baru</a></li>
                     <li role="separator" class="divider"></li>
@@ -66,76 +69,37 @@ else
       </div>
     </div>
     <div class="container marketing">
-    <div class="col-lg-4">
-    <form role="form" action="" method="get">
-    <select name="area" class="form-control" required autofocus>
-    	<?php
-    	$ambil=mysqli_query($koneksi, "SELECT * FROM data ORDER BY lokasi");
-    	while($data=mysqli_fetch_array($ambil)){
-    		if($temp!=$data['lokasi']){
-    			$temp=$data['lokasi'];
-    			echo "<option value='$temp'>$temp</option>";
-    		}
-    	}
-    	?>
-    </select>
-	</div>
-	<div class="col-lg-3">
-    <input type="date" name="cal" value="<?php echo "$tglvl"; ?>" class="form-control" required autofocus>
-	</div>
-	<div class="col-lg-2">
-		<button type="submit" name="lihat" class="btn btn-info btn-block"><span class="glyphicon glyphicon-open-file"></span>&nbsp;Tampil Data</button>
-	</div>
-	<div class="col-lg-2">
-		<?php if(isset($_GET['lihat'])&&isset($_GET['cal'])&&isset($_GET['area'])){
-			echo '<a href="tampil.php" class="btn btn-default btn-block"><span class="glyphicon glyphicon-menu-left"></span>&nbsp;Kembali</a>'; } ?>
-	</div>
-	<div class="col-lg-1">
-        &nbsp;
-	</div>
-	</form>
-	<br /><br />
-	<?php
-	if(isset($_GET['del'])){
-		$idata=$_GET['id'];
-		$query=mysqli_query($koneksi, "SELECT * FROM data WHERE id='$idata'");
-		$data=mysqli_fetch_array($query);
-		$yrs=$data[tahun];
-		$bula=$data[bulan];
-		$hr=$data[day];
-		$bul=bulanan($data[bulan]);
-		if($pre==1){
-         $ok=mysqli_query($koneksi, "DELETE FROM data WHERE id='$idata' AND day='$hr' AND bulan='$bula' AND tahun='$yrs' AND verifikasi=1");
+    <h3>Data <?php $bul=bulanan($data[bulan]); echo "$data[day] $bul $data[tahun]";?></h3>
+<?php
+    if(isset($_POST['approve'])){
+        if($pre==2){
+            $namaan=antiin($nama);
+        $ok=mysqli_query($koneksi, "UPDATE data SET verifikasi=1, ver_by='$namaan' WHERE id='$tabel' AND lokasi='$lokasi' AND verifikasi=0");
+        if($ok){
+          $bul=bulanan($data[bulan]);
+          echo "<div class='alert alert-success'><b>Terverifikasi!</b><br />Data pada Tanggal: \"$data[day] $bul $data[tahun]\" untuk wilayah \"$lokasi\"  Telah berhasil diverifikasi dan sudah dikirimkan ke Pusat!<br /></div>
+          <a href='./verifikasi.php' title='Kembali..'>&#171;Kembali..</a>";
+        }
+        else{
+          echo '<div class="alert alert-danger"><b>Galat!</b><br />Maaf, Ada kesalahan terjadi!<br /><i>Coba Lagi nanti..</i></div><a href="./verifikasi.php" title="Kembali..">&#171;Kembali..</a>';
+        }
+        }
+    }
+    elseif(isset($_POST['cancel'])){
+        if($pre==2){
+         $ok=mysqli_query($koneksi, "DELETE FROM data WHERE id='$tabel' AND lokasi='$lokasi' AND verifikasi=0");
           if($ok){
             $bul=bulanan($data[bulan]);
-            echo "<br /><br /><div class='alert alert-warning'><b>Data Dihapus!</b><br />Data pada Tanggal: \"$data[day] $bul $data[tahun]\" untuk wilayah \"$lokasi\" Telah dihapus!<br /></div>
-          <a href='./tampil.php' title='Kembali..'>&#171;Kembali..</a>";
+            echo "<div class='alert alert-warning'><b>Data Dihapus!</b><br />Data pada Tanggal: \"$data[day] $bul $data[tahun]\" untuk wilayah \"$lokasi\" Telah dihapus!<br /></div>
+          <a href='./verifikasi.php' title='Kembali..'>&#171;Kembali..</a>";
           }
           else{
-            echo '<div class="alert alert-danger"><b>Galat!</b><br />Maaf, Ada kesalahan terjadi pada saat menghapus!<br /><i>Coba Lagi nanti..</i></div><a href="./tampil.php" title="Kembali..">&#171;Kembali..</a>';
+            echo '<div class="alert alert-danger"><b>Galat!</b><br />Maaf, Ada kesalahan terjadi pada saat menghapus!<br /><i>Coba Lagi nanti..</i></div><a href="./verifikasi.php" title="Kembali..">&#171;Kembali..</a>';
           }
-    	}
-    	exit;
-	}
-	if(isset($_GET['lihat'])&&isset($_GET['cal'])&&isset($_GET['area'])){
-	list($yrs,$bul,$hr)=explode("-", $_GET['cal']);
-	$temp=addslashes(trim($_GET['area']));
-	$data=mysqli_query($koneksi, "SELECT * FROM data WHERE lokasi='$temp' AND day='$hr' AND bulan='$bul' AND tahun='$yrs' AND verifikasi=1");
-	$data=mysqli_fetch_array($data);
-	if(isset($data)==""){
-		echo "<table class='table table-striped table-hover table-responsive vtext'><tr><td align='center'>
-        <h1><span class='text-muted glyphicon glyphicon glyphicon-question-sign'></span></h1><h3>Data Tidak ada!</h3>
-      <sub>Data yang diminta tidak tersedia untuk saat ini. Silahkan, coba lagi nanti.</sub><br /><br /></td></tr></table>";
-	}else{
-	$bul=bulanan($data[bulan]);
-	echo "
-	<h3 align='center'>HASIL LAPORAN</h3>
-	<table>
-	<tr><th>Disusun</th><td>: <i>$data[creator]</td></tr>
-    <tr><th>Diverifikasi&nbsp;</th><td>: <i>$data[ver_by]</td></tr>
-    <tr><th>Tanggal</th><td>: <i>$data[day] $bul $data[tahun]</td></tr>
-    </table>
-    <hr />
+        }
+    }
+    else{
+    echo "
     <h4>Laporan Distribusi</h4>
     <div style='overflow-x:auto;'>
     <table cellpadding='10' align='center' class='table table-bordered table-responsive'>
@@ -160,8 +124,8 @@ else
     </tr>
 	</table>
 	</div>
-	<h4>Pengaduan Teknik</h4>
 	<div style='overflow-x:auto;'>
+	<h4>Pengaduan Teknik</h4>
 	<table cellpadding='10' align='center' class='table table-bordered table-responsive'>
     <tr align='center' class='bg-primary'>
         <td rowspan='2'> KUALITAS </td>
@@ -220,29 +184,28 @@ else
     </tr>
 	</table>
 	</div>
-	<hr />
-	<form role='form' action='' method='get'>
-    <input type='hidden' name='id' value='$data[id]' />
-    <div class='col-lg-8'>
+    <hr />";
+    if($data['verifikasi']==0||isset($_POST['approve'])||isset($_POST['cancel'])){
+    echo "
+    <form role='form' action='' method='post'>
+        <input type='hidden' name='id' value='$tabel' />
+    <div class='col-lg-6'>
         &nbsp;
     </div>
     <div class='col-lg-2'>
-    <button type='submit' name='del' class='btn btn-danger btn-block' onclick=\"return confirm('Dengan ini data akan dihapus, dan tidak dapat dikembalikan lagi. Yakin?')\"><span class='glyphicon glyphicon-trash'></span>&nbsp;Hapus</button><br />
-    </form>
+    <a href='verifikasi.php' class='btn btn-info btn-block' onclick=\"return confirm('Yakin ingin kembali ke menu sebelumnya?')\"><span class='glyphicon glyphicon-arrow-left'></span>&nbsp;Kembali</a><br />
     </div>
     <div class='col-lg-2'>
-    <a href='./act.php?id=$data[id]&show=' class='btn btn-warning btn-block' target='_blank'><span class='glyphicon glyphicon-print'></span>&nbsp;Print view</a>
+    <button type='submit' name='cancel' class='btn btn-danger btn-block' onclick=\"return confirm('Dengan ini data akan dihapus, dan tidak dapat dikembalikan lagi. Yakin?')\"><span class='glyphicon glyphicon-trash'></span>&nbsp;Hapus</button><br />
     </div>
-    ";}
-	}
-    else 
-    	echo "<table class='table table-striped table-hover table-responsive vtext'><tr><td align='center'>
-        <h1><span class='text-muted glyphicon glyphicon glyphicon-book'></span></h1><h3>Data Belum Dipilih!</h3>
-      <sub>Silahkan pilih datanya dulu dengan mengisi form diatas.</sub><br /><br /></td></tr></table>";
-	?>
-    <div class="bwh">
-		<p><strong><?php echo "$appnam <i>$ver</i>"; ?></strong> <b>-</b> <i>PDAM &amp; POLINDRA &#169; <?php echo $begin . (($begin != $now) ? '-' . $now : ''); ?></i></p>
-	</div>
+    <div class='col-lg-2'>
+    <button type='submit' name='approve' class='btn btn-success btn-block' onclick=\"return confirm('Dengan ini data akan dikirimkan ke pusat dan tidak dapat diubah lagi. Yakin?')\"><span class='glyphicon glyphicon-ok'></span>&nbsp;Verifikasi Data</button><br />
     </div>
+</form>
+    ";
+}
+}
+?>
+</div>
 </body>
 </html>

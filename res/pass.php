@@ -1,4 +1,5 @@
 <?php
+//encrypt password
 function convert($str){
 $str=strval($str);
 $ky='whatzittooya';
@@ -14,8 +15,14 @@ $j++;$j=$j==$kl?0:$j;}
 return $str;
 }
 
+//hash password
 function hashing($pass){
 	$pass = md5(sha1(convert($pass)));
 	return $pass;
+}
+
+function antiin($txt){
+	$txt=addslashes(trim($txt));
+	return $txt;
 }
 ?>

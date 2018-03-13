@@ -5,10 +5,13 @@ session_start();
 if(empty($_SESSION)){
 	header("Location: ./logout.php");
 }
+include("./cookies.php");
 include("../res/pass.php");
 include("../res/app.php");
 include("../res/koneksi.php");
+//detect IP address
 $ip=convert(hashing($_SERVER['REMOTE_ADDR']));
+//detect browser
 $bro=convert(hashing($_SERVER['HTTP_USER_AGENT']));
 $id=convert($_SESSION['id']);
 $data=mysqli_query($koneksi, "SELECT * FROM users WHERE username='$id'");
@@ -18,10 +21,9 @@ $sandi=$data['password'];
 $nama=$data['realname'];
 $lokasi=$data['locations'];
 $pre=$data['level'];
-$coks=convert(hashing($username));
-$cokp=convert($sandi);
+$coks=convert(hashing($username.convert($sandi)));
 //Cookies check it true?
-if($_COOKIE['u']!=$coks||$_COOKIE['s']!=$cokp||$_COOKIE['b']!=$bro||$_COOKIE['i']!=$ip){
+if($_COOKIE['a']!=$coks||$_COOKIE['b']!=$bro||$_COOKIE['i']!=$ip){
 	header("Location: ./logout.php");
 }
 //Get Previlege and what is shown
@@ -61,5 +63,11 @@ switch($pre){
 	break;
 	default:
 		header("Location: ./logout.php");
+}
+//... when > 16 char
+function singkat($an){
+if (strlen($an) > 16)
+   $an = substr($an, 0, 13) . '&#8230;';
+return $an;
 }
 ?>

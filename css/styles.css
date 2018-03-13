@@ -16,7 +16,8 @@ width: 270px;
 padding: 3px 4px;
 text-shadow: 3px 3px 2px rgba(0, 0, 0, 0.2);
 border-radius: 0px;
-border: 1px solid #ccc;
+border: none;
+border-bottom: 2px solid #ccc;
 }
 .form-user {
 font-family: 'Arial', 'Oxygen Mono', 'sans-serif';
@@ -26,7 +27,8 @@ width: 310px;
 padding: 3px 4px;
 text-shadow: 3px 3px 2px rgba(0, 0, 0, 0.2);
 border-radius: 0px;
-border: 1px solid #ccc;
+border: none;
+border-bottom: 2px solid #ccc;
 }
 .butn {
 color: #fff;
@@ -36,7 +38,7 @@ padding: 6px 12px;
 margin-bottom: 0px;
 font-size: 17px;
 font-family: 'Arial', 'Oxygen Mono', 'sans-serif';
-font-weight: normal;
+font-weight: 500;
 line-height: 1.42857;
 text-align: center;
 white-space: nowrap;
@@ -44,12 +46,12 @@ vertical-align: middle;
 border: 1px solid #ccc;
 }
 .butn:hover {
-background-color: #0077ee;
+background-color: #007bff;
 color: #eee;
 border: 1px solid #eee;
 }
 .buttn {
-color: #0099ff;
+color: #4285f4;
 height: 32px;
 width: 40px;
 font-family: 'Arial', 'Oxygen Mono', 'sans-serif';
@@ -59,37 +61,37 @@ margin-bottom: 0px;
 font-size: 15px;
 text-align: center;
 vertical-align: middle;
-border: 1px solid #ccc;
-}
-.chgt {
-color: #777;
-height: 28px;
-width: 36px;
-font-family: 'Arial', 'Oxygen Mono', 'sans-serif';
-background-color: #fff;
-padding: 6px 12px;
-margin-bottom: 0px;
-font-size: 10px;
-text-align: center;
-vertical-align: middle;
-border: 1px solid #666;
+border: none;
 }
 
-.chgt:hover {
-color: #777;
-height: 28px;
-width: 36px;
-font-family: 'Arial', 'Oxygen Mono', 'sans-serif';
-background-color: #dcdcdc;
-padding: 6px 12px;
-margin-bottom: 0px;
-font-size: 10px;
-text-align: center;
-vertical-align: middle;
-border: 1px solid #666;
+.form:focus{
+border-bottom: 2.4px solid #0099ff;
 }
 
-footer{
-	position: fixed;
-	bottom: 0;
+div.bwh{
+position: fixed;
+background: #fbfbfb;
+bottom: 0;
+}
+
+.eff{
+transition: 0.5s ease all;
+}
+
+@media only screen and (max-width: 320px) {
+.vtext{
+font-size: 4vmin;
+}
+.opning{
+font-size: 4vmin;
+}
+}
+
+@media only screen and (max-width: 480px) {
+div.bwh{
+font-size: 3vmin;
+position: sticky;
+bottom: 0;
+border: 1.4px; 
+}
 }
